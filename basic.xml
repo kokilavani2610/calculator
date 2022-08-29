@@ -22,16 +22,7 @@ The Basic ruleset contains a collection of good practices which should be follow
     <rule ref="category/java/errorprone.xml/OverrideBothEqualsAndHashcode" deprecated="true" />
     <rule ref="category/java/errorprone.xml/ReturnFromFinallyBlock" deprecated="true" />
     <rule ref="category/java/errorprone.xml/UnconditionalIfStatement" deprecated="true" />
-    <rule ref="category/java/errorprone.xml/CloneMethodMustBePublic" deprecated="true" />
-    <rule ref="category/java/errorprone.xml/CloneMethodMustImplementCloneable" deprecated="true" />
-    <rule ref="category/java/errorprone.xml/CloneMethodReturnTypeMustMatchClassName" deprecated="true" />
-    <rule ref="category/java/errorprone.xml/CloneThrowsCloneNotSupportedException" deprecated="true" />
-    <rule ref="category/java/errorprone.xml/ProperCloneImplementation" deprecated="true" />
-    <rule ref="category/java/errorprone.xml/EmptyCatchBlock"
-      message="Empty catch blocks should be avoided" >
-      <priority>5</priority>
-    </rule>
-
+ 
     <rule ref="category/java/multithreading.xml/AvoidThreadGroup" deprecated="true" />
     <rule ref="category/java/multithreading.xml/DontCallThreadRun" deprecated="true" />
     <rule ref="category/java/multithreading.xml/DoubleCheckedLocking" deprecated="true" />
