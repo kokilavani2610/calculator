@@ -11,5 +11,8 @@
 
 
     <rule ref="category/java/errorprone.xml/EmptyCatchBlock" />
+    <rule ref="category/java/errorprone.xml/CallSuperFirst" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/CallSuperLast" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/DoNotHardCodeSDCard" deprecated="true" />
 
 </ruleset>
