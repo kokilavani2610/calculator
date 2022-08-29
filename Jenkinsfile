@@ -6,7 +6,7 @@ pipeline {
         script {
           echo 'test'
           bat '''
-          pmd.bat -d src/main -R rulesets/java/quickstart.xml -f text
+          pmd.bat -d src/main -R rulesets/java/basic.xml -f text
           '''
         }
       }
