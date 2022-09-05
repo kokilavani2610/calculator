@@ -5,7 +5,8 @@ pipeline {
       steps {
         script {
           echo 'test'
-          bat '''          
+          bat '''  
+          cd bin
           pmd -d ../src/main -R ../customrule.xml -f text -r ../error.txt --fail-on-violation false
           '''
         }
