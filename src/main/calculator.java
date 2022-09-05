@@ -78,6 +78,9 @@ public class Calculator {
 
         int[] x = {MARGIN_X, MARGIN_X + 90, 200, 290, 380};
         int[] y = {MARGIN_Y, MARGIN_Y + 100, MARGIN_Y + 180, MARGIN_Y + 260, MARGIN_Y + 340, MARGIN_Y + 420};
+        int a= 4;
+        string s = "calculator"
+            
 
         inText = new JTextField("0");
         inText.setBounds(x[0], y[0], 350, 70);
