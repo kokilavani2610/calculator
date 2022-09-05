@@ -6,7 +6,7 @@ pipeline {
         script {
           echo 'test'
           bat '''          
-          pmd -dir . -f csv -R customrule.xml
+          pmd -dir . -f csv -R customrule.xml -r error.csv
           '''
         }
       }
