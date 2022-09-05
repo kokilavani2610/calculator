@@ -43,5 +43,29 @@
 
     <rule ref="category/java/design.xml/CollapsibleIfStatements" deprecated="true" />
     <rule ref="category/java/design.xml/SimplifiedTernary" deprecated="true" />
+    <rule ref="category/java/bestpractices.xml/UnusedFormalParameter"/>
+    <rule ref="category/java/bestpractices.xml/UnusedLocalVariable"/>
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateField"/>
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod"/>
+    <rule ref="category/java/bestpractices.xml/UseCollectionIsEmpty"/>
+    <rule ref="category/java/bestpractices.xml/UseStandardCharsets" />
+    <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/StringBufferInstantiationWithChar" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/UnnecessaryCaseChange" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/UseEqualsToCompareStrings" deprecated="true" />
+
+    <rule ref="category/java/bestpractices.xml/AvoidStringBufferField" deprecated="true" />
+
+    <rule ref="category/java/performance.xml/AppendCharacterWithChar" deprecated="true" />
+    <rule ref="category/java/performance.xml/ConsecutiveAppendsShouldReuse" deprecated="true" />
+    <rule ref="category/java/performance.xml/ConsecutiveLiteralAppends" deprecated="true" />
+    <rule ref="category/java/performance.xml/InefficientEmptyStringCheck" deprecated="true" />
+    <rule ref="category/java/performance.xml/InefficientStringBuffering" deprecated="true" />
+    <rule ref="category/java/performance.xml/InsufficientStringBufferDeclaration" deprecated="true" />
+    <rule ref="category/java/performance.xml/StringInstantiation" deprecated="true" />
+    <rule ref="category/java/performance.xml/StringToString" deprecated="true" />
+    <rule ref="category/java/performance.xml/UseIndexOfChar" deprecated="true" />
+    <rule ref="category/java/performance.xml/UselessStringValueOf" deprecated="true" />
+    <rule ref="category/java/performance.xml/UseStringBufferLength" deprecated="true" />
 
 </ruleset>
