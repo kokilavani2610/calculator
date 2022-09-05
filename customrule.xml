@@ -67,5 +67,18 @@
     <rule ref="category/java/performance.xml/UseIndexOfChar" deprecated="true" />
     <rule ref="category/java/performance.xml/UselessStringValueOf" deprecated="true" />
     <rule ref="category/java/performance.xml/UseStringBufferLength" deprecated="true" />
+     <rule ref="category/java/errorprone.xml/AvoidCatchingNPE" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/AvoidCatchingThrowable" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/AvoidLosingExceptionInformation" deprecated="true" />
+    <rule ref="category/java/errorprone.xml/DoNotThrowExceptionInFinally" deprecated="true" />
+
+    <rule ref="category/java/design.xml/AvoidCatchingGenericException" deprecated="true" />
+    <rule ref="category/java/design.xml/AvoidRethrowingException" deprecated="true" />
+    <rule ref="category/java/design.xml/AvoidThrowingNewInstanceOfSameException" deprecated="true" />
+    <rule ref="category/java/design.xml/AvoidThrowingNullPointerException" deprecated="true" />
+    <rule ref="category/java/design.xml/AvoidThrowingRawExceptionTypes" deprecated="true" />
+    <rule ref="category/java/design.xml/DoNotExtendJavaLangError" deprecated="true" />
+    <rule ref="category/java/design.xml/ExceptionAsFlowControl" deprecated="true" />
+    <rule ref="category/java/design.xml/SignatureDeclareThrowsException" deprecated="true" />
 
 </ruleset>
