@@ -6,7 +6,7 @@ pipeline {
         script {
           echo 'test'
           bat '''          
-          pmd -d src/main -R customrule.xml -r error.txt
+          pmd -d src/main -R customrule.xml -r error.txt --fail-on-violation false
           '''
         }
       }
