@@ -7,7 +7,7 @@ pipeline {
           echo 'test'
           bat '''  
           cd bin
-          pmd -d ../src/main -R ../customrule.xml -f text -r ../error.csv --fail-on-violation false
+          pmd -d ../src/main -R ../rules.xml -f text -r ../output.txt --fail-on-violation false
           '''
         }
       }
