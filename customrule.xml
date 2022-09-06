@@ -41,7 +41,10 @@
     <rule ref="category/java/performance.xml/BigIntegerInstantiation" deprecated="true" />
     <rule ref="category/java/performance.xml/BooleanInstantiation" deprecated="true" />
 
-    <rule ref="category/java/design.xml/CollapsibleIfStatements" deprecated="true" />
+    <rule ref="category/java/design.xml/CollapsibleIfStatements" 
+          message="if statement should be avoided" >
+        <priority>2</priority>
+    </rule>
     <rule ref="category/java/design.xml/SimplifiedTernary" deprecated="true" />
     <rule ref="category/java/bestpractices.xml/UnusedFormalParameter"/>
     <rule ref="category/java/bestpractices.xml/UnusedLocalVariable"
