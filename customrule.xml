@@ -60,9 +60,9 @@
     <rule ref="category/java/bestpractices.xml/UseStandardCharsets" />
     <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals" 
           <properties>
-        <property name="reportLevel">
-              <value>2</value>
-        </property>
+                <property name="reportLevel">
+                    <value>2</value>
+                </property>
           </properties>
     </rule>
     <rule ref="category/java/errorprone.xml/StringBufferInstantiationWithChar" deprecated="true" />
