@@ -44,7 +44,10 @@
     <rule ref="category/java/design.xml/CollapsibleIfStatements" deprecated="true" />
     <rule ref="category/java/design.xml/SimplifiedTernary" deprecated="true" />
     <rule ref="category/java/bestpractices.xml/UnusedFormalParameter"/>
-    <rule ref="category/java/bestpractices.xml/UnusedLocalVariable"/>
+    <rule ref="category/java/bestpractices.xml/UnusedLocalVariable"
+          message="Empty values should be avoided" >
+        <priority>1</priority>
+    </rule>
     <rule ref="category/java/bestpractices.xml/UnusedPrivateField"/>
     <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod"/>
     <rule ref="category/java/bestpractices.xml/UseCollectionIsEmpty"/>
