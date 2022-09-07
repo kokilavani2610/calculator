@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<ruleset name="Best Practices"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>
+Rules which enforce generally accepted best practices.
+    </description>
+  <rule name="UnusedLocalVariable"
+          language="java"
+          since="0.1"
+          message="Avoid unused local variables such as ''{0}''."
+          class="net.sourceforge.pmd.lang.java.rule.bestpractices.UnusedLocalVariableRule"
+          externalInfoUrl="${pmd.website.baseurl}/pmd_rules_java_bestpractices.html#unusedlocalvariable">
+        <description>
+Detects when a local variable is declared and/or assigned, but not used.
+Variables whose name starts with `ignored` or `unused` are filtered out.
+        </description>
+        <priority>3</priority>
+        <example>
+<![CDATA[
+public class Foo {
+    public void doSomething() {
+        int i = 5; // Unused
+    }
+}
+]]>
+        </example>
+    </rule>
+
+    <rule name="UnusedPrivateField"
+          since="0.1"
+          language="java"
+          message="Avoid unused private fields such as ''{0}''."
+          class="net.sourceforge.pmd.lang.java.rule.bestpractices.UnusedPrivateFieldRule"
+          externalInfoUrl="${pmd.website.baseurl}/pmd_rules_java_bestpractices.html#unusedprivatefield">
+        <description>
+Detects when a private field is declared and/or assigned a value, but not used.
+        </description>
+        <priority>3</priority>
+        <example>
+<![CDATA[
+public class Something {
+    private static int FOO = 2; // Unused
+    private int i = 5; // Unused
+    private int j = 6;
+    public int addOne() {
+        return j++;
+    }
+}
+]]>
+        </example>
+    </rule>
+  </ruleset>
