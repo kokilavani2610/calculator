@@ -39,7 +39,7 @@ public class Foo {
         <description>
 Detects when a private field is declared and/or assigned a value, but not used.
         </description>
-        <priority>3</priority>
+        <priority>1</priority>
         <example>
 <![CDATA[
 public class Something {
