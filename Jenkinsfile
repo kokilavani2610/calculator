@@ -14,7 +14,7 @@ pipeline {
     }
     stage('Slack Upload'){
       steps {
-        slackUploadFile filePath: 'C:\\Users\\003HCC744\\.jenkins\\jobs\\pmd-github\\workspace', initialComment: 'trying to uploading file'
+        slackUploadFile filePath: 'a.csv', initialComment: 'trying to uploading file'
       }
     }
   }
