@@ -12,5 +12,10 @@ pipeline {
         }
       }
     }
+    stage('Slack Upload'){
+      steps {
+        slackUploadFile filePath: 'a.csv', initialComment: 'trying to uploading file'
+      }
+    }
   }
 }
