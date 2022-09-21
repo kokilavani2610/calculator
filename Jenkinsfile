@@ -12,10 +12,17 @@ pipeline {
         }
       }
     }
-    stage('Slack Upload'){
-      steps {
-        slackUploadFile filePath: 'a.csv', initialComment: 'trying to uploading file'
-      }
-    }
+//     stage('Slack Upload'){
+//       steps {
+//         slackUploadFile filePath: 'a.csv', initialComment: 'trying to uploading file'
+//       }
+//     }
+    stage ('Scan and Build Jar File') {
+            steps {
+               withSonarQubeEnv(installationName: 'sonarscanner', credentialsId: 'sonartoken') {
+                sh 'mvn clean package sonar:sonar'
+                }
+            }
+        }
   }
 }
