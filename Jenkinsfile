@@ -13,11 +13,10 @@ pipeline {
                         echo 'File found'
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
                             def fields = line.split(',')
-                            echo fields[0] + ': ' +  fields[1]  + ':' +  fields[2];
-                            def jobname = fields[0]
-                            def imagetag = fields[1]
-                            def branchname = fields[2]
-                            prepareBuildStages(repoList)
+                            echo fields[0] + ': ' +  fields[1];
+                            def jobname = fields[0]                           
+                            def branchname = fields[1]
+                            initiatebuild(jobname,branchname)
 
                              }
 
@@ -33,25 +32,25 @@ pipeline {
         }
 
 }
-def prepareBuildStages(List repoList) {
-    def buildParallelMap = [:]
-    for (line in repoList ) {
-        def fields = line.split(',')
-       def jobname = fields[0]
-                            def imagetag = fields[1]
-                            def branchname = fields[2]
+// def prepareBuildStages(List repoList) {
+//     def buildParallelMap = [:]
+//     for (line in repoList ) {
+//         def fields = line.split(',')
+//        def jobname = fields[0]
+//                             def imagetag = fields[1]
+//                             def branchname = fields[2]
       
-            buildParallelMap.put(name, initiatebuild(name,imagetag,branchname))
+//             buildParallelMap.put(name, initiatebuild(name,imagetag,branchname))
         
-    }
-    return buildParallelMap
-}
+//     }
+//     return buildParallelMap
+// }
 
-def initiatebuild(String jobname,String imagetag,String branchname) {
+def initiatebuild(String jobname,String branchname) {
     stage("Build : ${jobname}")  {
         script {
 	        if(BUILD_TYPE == "deploy_only"){
-			def jobresult = build job: "${jobname}", parameters: [string(name: 'IMAGE_TAG', value: "${imagetag}")], wait: false
+			//def jobresult = build job: "${jobname}", parameters: [string(name: 'IMAGE_TAG', value: "${imagetag}")], wait: false
 			sh 'sleep 60'
 	           }else{
 			def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: false, propagate: false
