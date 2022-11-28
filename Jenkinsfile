@@ -52,7 +52,7 @@ def initiatebuild(String jobname,String branchname) {
 	        //if(BUILD_TYPE == "deploy_only"){
 			//def jobresult = build job: "${jobname}", parameters: [string(name: 'IMAGE_TAG', value: "${imagetag}")], wait: false
 			//sh 'sleep 60'
-	           }
+	           //}
 	   	if (NAMESPACE == "sco"){
 			def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: false, propagate: false
 			sh 'sleep 60'
