@@ -9,6 +9,7 @@ pipeline {
         stage('Parse the CSV') {
         steps {
             script {
+		    prepareBuildStages(Repo_LIST)
                     if (fileExists('scripts/job-list.csv')) {
                         echo 'File found'
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
@@ -17,7 +18,7 @@ pipeline {
                             def jobname = fields[0]                           
                             def branchname = fields[1]
                             //initiatebuild(jobname,branchname)
-			    prepareBuildStages(Repo_LIST)
+			    //prepareBuildStages(Repo_LIST)
 
                              }
 
