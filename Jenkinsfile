@@ -9,7 +9,7 @@ pipeline {
         stage('Parse the CSV') {
         steps {
             script {
-		    preparebuild(Repo_LIST)
+		    
                     if (fileExists('scripts/job-list.csv')) {
                         echo 'File found'
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
@@ -18,7 +18,7 @@ pipeline {
                             def jobname = fields[0]                           
                             def branchname = fields[1]
                             //initiatebuild(jobname,branchname)
-			    //prepareBuildStages(Repo_LIST)
+			    invokebuilds(repoList)
 
                              }
 
@@ -34,14 +34,14 @@ pipeline {
         }
 
 }
-def preparebuild(List repoList) {
+def invokebuilds(List repoList) {
     def buildParallelMap = [:]
     for (line in repoList ) {
         def fields = line.split(',')
         def jobname = fields[0]                    
         def branchname = fields[1]
       
-            buildParallelMap.put(name, initiatebuild(name,branchname))
+            buildParallelMap.put(name, initiatebuild(jobname,branchname))
         
     }
     return buildParallelMap
