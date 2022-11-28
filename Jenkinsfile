@@ -16,7 +16,8 @@ pipeline {
                             echo fields[0] + ': ' +  fields[1];
                             def jobname = fields[0]                           
                             def branchname = fields[1]
-                            initiatebuild(jobname,branchname)
+                            //initiatebuild(jobname,branchname)
+				 prepareBuildStages(repoList)
 
                              }
 
@@ -32,19 +33,19 @@ pipeline {
         }
 
 }
-// def prepareBuildStages(List repoList) {
-//     def buildParallelMap = [:]
-//     for (line in repoList ) {
-//         def fields = line.split(',')
-//        def jobname = fields[0]
-//                             def imagetag = fields[1]
-//                             def branchname = fields[2]
+def prepareBuildStages(List repoList) {
+    def buildParallelMap = [:]
+    for (line in repoList ) {
+        def fields = line.split(',')
+       def jobname = fields[0]
+                            
+                            def branchname = fields[1]
       
-//             buildParallelMap.put(name, initiatebuild(name,imagetag,branchname))
+            buildParallelMap.put(name, initiatebuild(name,branchname))
         
-//     }
-//     return buildParallelMap
-// }
+    }
+    return buildParallelMap
+}
 
 def initiatebuild(String jobname,String branchname) {
     stage("Build : ${jobname}")  {
@@ -54,7 +55,7 @@ def initiatebuild(String jobname,String branchname) {
 			//sh 'sleep 60'
 	           //}
 	   	if (NAMESPACE == "sco"){
-			def jobresult = build(job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:false, propagate: false).result
+			def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:false, propagate: false
 			//bat 'timeout 60'
 			//def buildresult =  "${jobresult.getResult()}"
 		        //echo "${buildresult}"
