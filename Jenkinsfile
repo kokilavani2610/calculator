@@ -55,7 +55,7 @@ def initiatebuild(String jobname,String branchname) {
 	           //}
 	   	if (NAMESPACE == "sco"){
 			def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: false, propagate: false
-			bat 'timeout 60'
+			//bat 'timeout 60'
 			def buildresult =  "${jobresult.getResult()}"
 		        bat 'echo "${buildresult}"'
 			if("${buildresult}" != 'SUCCESS'){
