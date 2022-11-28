@@ -17,7 +17,7 @@ pipeline {
                             def jobname = fields[0]                           
                             def branchname = fields[1]
                             //initiatebuild(jobname,branchname)
-				 prepareBuildStages(repoList)
+				 prepareBuildStages(Repo_LIST)
 
                              }
 
