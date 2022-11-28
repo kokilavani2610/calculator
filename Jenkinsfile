@@ -1,4 +1,5 @@
 def repoList = 'job-list.csv'
+def buildParallelMap = [:]
 pipeline {
     agent any
     parameters {
@@ -34,14 +35,13 @@ pipeline {
         }
 
 }
-def invokebuilds(List repoList) {
-    def buildParallelMap = [:]
+def invokebuilds(List repoList) {   
     for (line in repoList ) {
         def fields = line.split(',')
         def jobname = fields[0]                    
         def branchname = fields[1]
       
-            buildParallelMap.put(name, initiatebuild(jobname,branchname))
+            buildParallelMap.put(jobname, initiatebuild(jobname,branchname))
         
     }
     return buildParallelMap
