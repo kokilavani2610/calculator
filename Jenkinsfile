@@ -57,12 +57,12 @@ def initiatebuild(String jobname,String branchname) {
 			def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: true, propagate: false
 			//bat 'timeout 60'
 			def buildresult =  "${jobresult.getResult()}"
-		        bat 'echo "${buildresult}"'
+		        echo "${buildresult}"
 			if("${buildresult}" != 'SUCCESS'){
 				catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
 		                       error("Downstream job failing-job failed.")
 			}
-			}else{bat 'echo "No issues"'}
+			}else{echo "No issues"}
 		 }
               }
         }
