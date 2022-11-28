@@ -10,7 +10,7 @@ pipeline {
     }
     stage ('Scan') {
             steps {
-               withSonarQubeEnv(installationName: 'sonarqubeserver', credentialsId: 'sonartoken') {
+               //withSonarQubeEnv(installationName: 'sonarqubeserver', credentialsId: 'sonartoken') {
                 echo "sonar"
                 }
             }
