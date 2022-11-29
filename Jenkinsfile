@@ -59,7 +59,7 @@ def initiatebuild(String jobname,String branchname) {
 			def result = parallel (
 			 "JobAKey":{
 				 build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true,propagate: false
-				 bat 'timeout 60'
+				 bat 'sleep 60'
 			 }
 			)
 			//bat 'timeout 60'
