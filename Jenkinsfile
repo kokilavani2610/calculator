@@ -58,7 +58,8 @@ def initiatebuild(String jobname,String branchname) {
 	   	if (NAMESPACE == "sco"){
 			def result = parallel (
 			 "JobAKey":{
-				 build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:false,propagate: false
+				 build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true,propagate: false
+				 bat 'timeout 60'
 			 }
 			)
 			//bat 'timeout 60'
