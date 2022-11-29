@@ -57,17 +57,19 @@ def initiatebuild(String jobname,String branchname) {
 		
 	   	if (NAMESPACE == "sco"){
 			def result = parallel (
-			 jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true,propagate: false
+			 "JobAKey":{
+				 build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true,propagate: false
+			 }
 			)
 			//bat 'timeout 60'
 			//def buildresult =  "${jobresult.getResult()}"
 		        //echo "${buildresult}"
-			print(result['jobresult'].result)
-			if("${jobresult}" != 'SUCCESS'){
-				catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-		                       error("Downstream job failing-job failed.")
-			}
-			}else{echo "No issues"}
+			print(result['JobAKey'].result)
+			//if("${jobresult}" != 'SUCCESS'){
+				//catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+		                      // error("Downstream job failing-job failed.")
+			//}
+			//}else{echo "No issues"}
 		 }
               }
         }
