@@ -18,7 +18,7 @@ pipeline {
                             echo fields[0] + ': ' +  fields[1];
                             def jobname = fields[0]                           
                             def branchname = fields[1]
-                            initiatebuild(jobname,branchname)
+                            //initiatebuild(jobname,branchname)
 			    invokebuilds(repoList)
 
                              }
