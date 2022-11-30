@@ -52,9 +52,10 @@ def initiatebuild(String jobname,String branchname) {
 	    
 		    
 			    steps{    
-				    parallel(
+				   
        		
-	   			if (NAMESPACE == "sco"){			
+	   			if (NAMESPACE == "sco"){
+					parallel(
 				 	jobresult= build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")],propagate: false
 				
 			
@@ -66,8 +67,9 @@ def initiatebuild(String jobname,String branchname) {
 						       error("Downstream job failing-job failed.")
 					}
 					}else{echo "No issues"}
+						)
 				}
-					    )
+					    
 			    }
 		    
 	    
