@@ -49,9 +49,10 @@ def invokebuilds(List repoList) {
 
 def initiatebuild(String jobname,String branchname) {
     stage("Build")  {
-	    parallel {
-		    stage("${jobname}"){
+	    
+		    
 			    steps{    
+				    parallel(
        		
 	   			if (NAMESPACE == "sco"){			
 				 	jobresult= build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")],propagate: false
@@ -66,9 +67,10 @@ def initiatebuild(String jobname,String branchname) {
 					}
 					}else{echo "No issues"}
 				}
+					    )
 			    }
-		    }
-	    }
+		    
+	    
     }
 }
 
