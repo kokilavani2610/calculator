@@ -57,14 +57,14 @@ def initiatebuild(String jobname,String branchname) {
 	   			if (NAMESPACE == "sco"){
 					parallel(
 				 	jobresult= build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")],propagate: false	
-			
+						echo "${jobresult.result}"
 					
 
-					if("${jobresult.result}" != 'SUCCESS'){
-						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-						       error("Downstream job failing-job failed.")
-					}
-					}else{echo "No issues"}
+// 					if("${jobresult.result}" != 'SUCCESS'){
+// 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+// 						       error("Downstream job failing-job failed.")
+// 					}
+// 					}else{echo "No issues"}
 						)
 				}
 					    
