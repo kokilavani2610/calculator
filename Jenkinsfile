@@ -51,28 +51,25 @@ def initiatebuild(String jobname,String branchname) {
     stage("Build")  {
 	    parallel {
 		    stage("${jobname}"){
-			    steps{		    
-       			
-	        //if(BUILD_TYPE == "deploy_only"){
-			//def jobresult = build job: "${jobname}", parameters: [string(name: 'IMAGE_TAG', value: "${imagetag}")], wait: false
-			//sh 'sleep 60'
-	           //}
-		
+			    steps{    
+       		
 	   			if (NAMESPACE == "sco"){			
-				 	jobresult=build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")],propagate: false
+				 	jobresult= build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")],propagate: false
 				
 			
-			def buildresult =  "${jobresult.getResult()}"
-		        echo "${buildresult}"
-			
-			if("${}" != 'SUCCESS'){
-				catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-		                       error("Downstream job failing-job failed.")
-			}
-			}else{echo "No issues"}
-		 }
-              }
+					def buildresult =  "${jobresult.getResult()}"
+					echo "${buildresult}"
+
+					if("${buildresult}" != 'SUCCESS'){
+						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+						       error("Downstream job failing-job failed.")
+					}
+					}else{echo "No issues"}
+				}
+			    }
 		    }
 	    }
-        }
+    }
 }
+
+		 
