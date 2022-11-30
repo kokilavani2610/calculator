@@ -19,7 +19,7 @@ pipeline {
                             def jobname = fields[0]                           
                             def branchname = fields[1]
                             initiatebuild(jobname,branchname)
-			    //invokebuilds(repoList)
+			    invokebuilds(repoList)
 
                              }
 
@@ -41,7 +41,7 @@ def invokebuilds(List repoList) {
         def jobname = fields[0]                    
         def branchname = fields[1]
       
-            buildParallelMap.put(jobname, initiatebuild(jobname,branchname))
+            buildParallelMap.add(initiatebuild(jobname,branchname))
         
     }
     return buildParallelMap
