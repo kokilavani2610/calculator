@@ -51,7 +51,7 @@ def initiatebuild(String jobname,String branchname) {
     stage("Build")  {
 	    
 		    
-			    steps{    
+			    script{    
 				   
        		
 	   			if (NAMESPACE == "sco"){
