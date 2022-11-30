@@ -56,8 +56,8 @@ def initiatebuild(String jobname,String branchname) {
        		
 	   			if (NAMESPACE == "sco"){
 					parallel(
-				 	jobresult= build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")],propagate: false	
-						echo "${jobresult.result}"
+				 	def jobresult= build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")],propagate: false	
+						echo "${jobresult}"
 					
 
 // 					if("${jobresult.result}" != 'SUCCESS'){
