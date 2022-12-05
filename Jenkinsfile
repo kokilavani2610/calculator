@@ -7,6 +7,7 @@ pipeline {
         string(name: 'Repo_LIST', defaultValue: 'job-list.csv', description: 'Name of CSV file containing the list of images', trim: true)
     }
     stages {
+	    parallel {
         stage('Parse the CSV') {
         steps {
             script {
@@ -31,8 +32,8 @@ pipeline {
 
                         }
                 }
-	    stage("Paralel"){
-	       parallel {	
+	    
+	       	
 		    stage("pmd-github"){
 	     			steps {	       			
 					def jobresult = build job: "pmd-github", parameters: [string(name: 'BRANCH', value: 'main')], wait:false, propagate: false
@@ -61,7 +62,7 @@ pipeline {
 				 }
 				
 		    }
-	     }
+	     
 	    }
 
     }
@@ -97,7 +98,7 @@ def initiatebuild(String jobname,String branchname) {
 					}else{echo "No issues"}
 				 }
 				}
-		    }
+		    
 	    }
     }
 }
