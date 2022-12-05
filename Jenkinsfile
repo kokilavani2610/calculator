@@ -100,6 +100,7 @@ def initiatebuild(String jobname,String branchname) {
 					}
 					}else{echo "No issues"}
 				 }
+				}
 				
 			    
 	 
