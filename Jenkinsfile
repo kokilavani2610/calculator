@@ -1,7 +1,5 @@
 def repoList = 'job-list.csv'
-def jobname ='undefined'
-def branchname = 'underfined'
-def buildParallelMap = [:]
+
 pipeline {
     agent any
     parameters {
@@ -18,9 +16,9 @@ pipeline {
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
                             def fields = line.split(',')
                             echo fields[0] + ': ' +  fields[1];
-                            jobname = fields[0]                           
-                            branchname = fields[1]
-                            //initiatebuild(jobname,branchname)
+                            def jobname = fields[0]                           
+                            def branchname = fields[1]
+                            initiatebuild(jobname,branchname)
 			    //invokebuilds(repoList)
 
                              }
