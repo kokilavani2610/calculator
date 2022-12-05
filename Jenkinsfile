@@ -8,8 +8,7 @@ pipeline {
         string(name: 'Repo_LIST', defaultValue: 'job-list.csv', description: 'Name of CSV file containing the list of images', trim: true)
     }
     stages {
-	    stage('Paralleljob'){
-	    parallel {
+
         stage('Parse the CSV') {
         steps {
             script {
@@ -46,7 +45,8 @@ pipeline {
 
     
 	    
-	       	
+	       stage('Paralleljob'){
+	         parallel {
 			stage("pmd-github"){
 			    steps {
 	     			script {
