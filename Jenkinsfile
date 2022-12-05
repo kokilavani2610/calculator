@@ -1,7 +1,4 @@
 def repoList = 'job-list.csv'
-def jobname = 'undefined'
-def branchname = 'undefined'
-
 pipeline {
     agent any
     parameters {
@@ -20,10 +17,10 @@ pipeline {
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
                             def fields = line.split(',')
                             echo fields[0] + ': ' +  fields[1];
-                             jobname = fields[0] > myval                          
-                             branchname = fields[1] > myval1
+                             def jobname = fields[0] > myval                          
+                             def branchname = fields[1] > myval1
 				 stash 'myval'
-				 stach 'myval1'
+				 stash 'myval1'
 				 
                             //initiatebuild(jobname,branchname)
 			    //invokebuilds(repoList)
