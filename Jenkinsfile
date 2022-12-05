@@ -20,8 +20,11 @@ pipeline {
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
                             def fields = line.split(',')
                             echo fields[0] + ': ' +  fields[1];
-                             jobname = fields[0]                           
-                             branchname = fields[1]
+                             jobname = fields[0] > myval                          
+                             branchname = fields[1] > myval1
+				 stash 'myval'
+				 stach 'myval1'
+				 
                             //initiatebuild(jobname,branchname)
 			    //invokebuilds(repoList)
 
@@ -40,8 +43,11 @@ pipeline {
 	       	
 			stage("pmd-github"){
 			    steps {
-	     			script {	       			
-					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true, propagate: false
+	     			script {
+					unstash 'myval'
+					unstash 'myval1'
+					
+					def jobresult = build job: "${myval}", parameters: [string(name: 'BRANCH', value: "${myval1}")], wait:true, propagate: false
 					//sh 'sleep 150'		
 					 def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
