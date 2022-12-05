@@ -89,7 +89,7 @@ def initiatebuild(String jobname,String branchname) {
    
 		    stage("${jobname}"){			    
 	     			script {
-	       			 if (NAMESPACE== sco) {
+	       			 if (NAMESPACE== "sco") {
 					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: true, propagate: false
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
