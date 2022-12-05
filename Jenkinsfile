@@ -19,7 +19,7 @@ pipeline {
                             echo fields[0] + ': ' +  fields[1];
                              def jobname = fields[0]                           
                              def branchname = fields[1] 
-				 stash includes:'fields[0]', name:'myval'
+				 stash includes:'jobname', name:'myval'
 				 //stash 'myval1'
 				 
                             //initiatebuild(jobname,branchname)
