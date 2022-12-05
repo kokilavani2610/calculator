@@ -28,6 +28,9 @@ pipeline {
 			    //invokebuilds(repoList)
 
                              }
+			    echo "readline... ${jobname}"
+			    echo "readline... ${branchname}"
+			    
 
                     }else {
                         echo ' File Not found. Failing.'
@@ -49,7 +52,7 @@ pipeline {
 	     			script {
 					//unstash 'myval'
 					//unstash 'myval1'
-					echo "${jobname}"
+					echo "in stage...${jobname}"
 					
 					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true, propagate: false
 					//sh 'sleep 150'		
