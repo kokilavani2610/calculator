@@ -35,9 +35,9 @@ pipeline {
 	       parallel {	
 		    stage("pmd-github"){
 	     			steps {	       			
-					 jobresult = build job: "pmd-github", parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: false
+					def jobresult = build job: "pmd-github", parameters: [string(name: 'BRANCH', value: 'main')], wait:false, propagate: false
 					//sh 'sleep 150'		
-					 buildresult =  "${jobresult.getResult()}"
+					 def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
 					if(${buildresult} != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
@@ -49,9 +49,9 @@ pipeline {
 		    }
 		       stage("Pipeline 1"){
 	     			steps {	       			
-					jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
+					def jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
 					//sh 'sleep 150'		
-					 buildresult =  "${jobresult.getResult()}"
+					 def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
 					if(${buildresult} != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
