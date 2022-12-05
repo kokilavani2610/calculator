@@ -52,9 +52,9 @@ pipeline {
 	     			script {
 					//unstash 'myval'
 					//unstash 'myval1'
-					echo "in stage...${jobname}"
+					//echo "in stage...${jobname}"
 					
-					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true, propagate: false
+					def jobresult = build job: "pmd-github", parameters: [string(name: 'BRANCH', value: 'main')], wait:true, propagate: false
 					//sh 'sleep 150'		
 					 def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
