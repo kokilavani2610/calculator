@@ -32,10 +32,9 @@ pipeline {
                         }
                 }
 	    stage("Paralel"){
-	     parallel {
-		     steps {
+	     parallel {	
 		    stage("${jobname}"){
-	     			script {
+	     			steps {
 	       			 if (NAMESPACE== sco) {
 					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: true, propagate: false
 					//sh 'sleep 150'		
