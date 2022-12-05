@@ -1,4 +1,6 @@
 def repoList = 'job-list.csv'
+def jobname 
+def branchname
 pipeline {
     agent any
     parameters {
@@ -17,8 +19,8 @@ pipeline {
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
                             def fields = line.split(',')
                             echo fields[0] + ': ' +  fields[1];
-                             def jobname = fields[0]                           
-                             def branchname = fields[1] 
+                              jobname = fields[0]                           
+                              branchname = fields[1] 
 				 //stash includes:'jobname', name:'myval'
 				 //stash 'myval1'
 				 
@@ -35,8 +37,8 @@ pipeline {
 
                         }
                 }
-	    }
-	    }
+	    
+	    
     
 
     
@@ -45,10 +47,11 @@ pipeline {
 			stage("pmd-github"){
 			    steps {
 	     			script {
-					unstash 'myval'
-					unstash 'myval1'
+					//unstash 'myval'
+					//unstash 'myval1'
+					echo "${jobname}"
 					
-					def jobresult = build job: "${myval}", parameters: [string(name: 'BRANCH', value: 'main')], wait:true, propagate: false
+					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true, propagate: false
 					//sh 'sleep 150'		
 					 def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
@@ -75,6 +78,7 @@ pipeline {
 				 }
 			       }
 		       }
+	    }
 	    
 	    
 	    }
