@@ -6,7 +6,9 @@ pipeline {
         string(name: 'NAMESPACE', defaultValue: 'sco', description: 'Namespace name', trim: true)
         string(name: 'Repo_LIST', defaultValue: 'job-list.csv', description: 'Name of CSV file containing the list of images', trim: true)
     }
-    stages {	    
+    stages {
+	    stage('Paralleljob')
+	    parallel {
         stage('Parse the CSV') {
         steps {
             script {
@@ -18,7 +20,7 @@ pipeline {
                             echo fields[0] + ': ' +  fields[1];
                             def jobname = fields[0]                           
                             def branchname = fields[1]
-                            initiatebuild(jobname,branchname)
+                            //initiatebuild(jobname,branchname)
 			    //invokebuilds(repoList)
 
                              }
@@ -31,52 +33,48 @@ pipeline {
 
                         }
                 }
-    }
-}
+    
 	    
 	       	
-// 			stage("${jobname}"){
-// 			    steps {
-// 	     			script {	       			
-// 					def jobresult = build job: "pmd-github", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true, propagate: false
-// 					//sh 'sleep 150'		
-// 					 def buildresult =  "${jobresult.getResult()}"
-// 					echo "${buildresult}"
-// 					if("${buildresult}" != 'SUCCESS'){
-// 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-// 						       error("Downstream job failing-job failed.")
-// 					}
-// 					}else{echo "No issues"}
-// 				 }
-// 			    }
-// 		    }
-// 		       stage("Pipeline 1"){
-// 			       steps {
-// 	     			script {	       			
-// 					def jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
-// 					//sh 'sleep 150'		
-// 					 def buildresult =  "${jobresult.getResult()}"
-// 					echo "${buildresult}"
-// 					if("${buildresult}" != 'SUCCESS'){
-// 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-// 						       error("Downstream job failing-job failed.")
-// 					}
-// 					}else{echo "No issues"}
-// 				 }
-// 			       }
-// 		    }
-	     
-// 	    }
-// 	    }  
+			stage("pmd-github"){
+			    steps {
+	     			script {	       			
+					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait:true, propagate: false
+					//sh 'sleep 150'		
+					 def buildresult =  "${jobresult.getResult()}"
+					echo "${buildresult}"
+					if("${buildresult}" != 'SUCCESS'){
+						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+						       error("Downstream job failing-job failed.")
+					}
+					}else{echo "No issues"}
+				 }
+			    }
+		    }
+		       stage("Pipeline 1"){
+			       steps {
+	     			script {	       			
+					def jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
+					//sh 'sleep 150'		
+					 def buildresult =  "${jobresult.getResult()}"
+					echo "${buildresult}"
+					if("${buildresult}" != 'SUCCESS'){
+						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+						       error("Downstream job failing-job failed.")
+					}
+					}else{echo "No issues"}
+				 }
+			       }
+		       }
+	    }
+    }
+}
 
-    
 
 
 
 def initiatebuild(String jobname,String branchname) {
-    stages {
-	    stage('Build'){
-	    parallel {
+   
 		    stage("${jobname}"){
 			    steps {
 	     			script {
@@ -92,9 +90,7 @@ def initiatebuild(String jobname,String branchname) {
 					}else{echo "No issues"}
 				 }
 				}
-			    }
-		    }
-	    }
+			    
 	 }
     }
 }
