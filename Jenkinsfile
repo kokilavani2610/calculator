@@ -33,9 +33,23 @@ pipeline {
                 }
 	    stage("Paralel"){
 	       parallel {	
-		    stage("${jobname}"){
+		    stage("pmd-github"){
 	     			steps {	       			
-					 jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: true, propagate: false
+					 jobresult = build job: "pmd-github", parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: false
+					//sh 'sleep 150'		
+					 buildresult =  "${jobresult.getResult()}"
+					echo "${buildresult}"
+					if(${buildresult} != 'SUCCESS'){
+						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+						       error("Downstream job failing-job failed.")
+					}
+					}else{echo "No issues"}
+				 }
+				
+		    }
+		       stage("Pipeline 1"){
+	     			steps {	       			
+					jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
 					//sh 'sleep 150'		
 					 buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
@@ -49,6 +63,7 @@ pipeline {
 		    }
 	     }
 	    }
+
     }
 }
     
