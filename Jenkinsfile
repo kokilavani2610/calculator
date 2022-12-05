@@ -74,7 +74,7 @@ pipeline {
 
 
 def initiatebuild(String jobname,String branchname) {
-    stages("Build")  {
+    stage("Build")  {
 	    parallel {
 		    stage("${jobname}"){
 			    steps {
