@@ -18,7 +18,7 @@ pipeline {
                             echo fields[0] + ': ' +  fields[1];
                             def jobname = fields[0]                           
                             def branchname = fields[1]
-                            initiatebuild(jobname,branchname)
+                            //initiatebuild(jobname,branchname)
 			    //invokebuilds(repoList)
 
                              }
@@ -31,10 +31,29 @@ pipeline {
 
                         }
                 }
-
-        }
-
+	    stage("Paralel"){
+	     parallel {
+		    stage("${jobname}"){
+	     			script {
+	       			 if (NAMESPACE== sco) {
+					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: true, propagate: false
+					//sh 'sleep 150'		
+					def buildresult =  "${jobresult.getResult()}"
+					echo "${buildresult}"
+					if(${buildresult} != 'SUCCESS'){
+						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+						       error("Downstream job failing-job failed.")
+					}
+					}else{echo "No issues"}
+				 }
+				}
+		    }
+	    }
+	    }
+    }
 }
+    
+
 def invokebuilds(List repoList) {   
     for (line in repoList ) {
         def fields = line.split(',')
