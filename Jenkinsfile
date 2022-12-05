@@ -22,7 +22,7 @@ pipeline {
 				 //stash includes:'jobname', name:'myval'
 				 //stash 'myval1'
 				 
-                            initiatebuild(jobname,branchname)
+                            //initiatebuild(jobname,branchname)
 			    //invokebuilds(repoList)
 
                              }
@@ -37,50 +37,50 @@ pipeline {
                 }
 	    }
 	    }
-    }
-}
+    
+
     
 	    
 	       	
-// 			stage("pmd-github"){
-// 			    steps {
-// 	     			script {
-// 					unstash 'myval'
-// 					unstash 'myval1'
+			stage("pmd-github"){
+			    steps {
+	     			script {
+					unstash 'myval'
+					unstash 'myval1'
 					
-// 					def jobresult = build job: "${myval}", parameters: [string(name: 'BRANCH', value: 'main')], wait:true, propagate: false
-// 					//sh 'sleep 150'		
-// 					 def buildresult =  "${jobresult.getResult()}"
-// 					echo "${buildresult}"
-// 					if("${buildresult}" != 'SUCCESS'){
-// 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-// 						       error("Downstream job failing-job failed.")
-// 					}
-// 					}else{echo "No issues"}
-// 				 }
-// 			    }
-// 		    }
-// 		       stage("Pipeline 1"){
-// 			       steps {
-// 	     			script {	       			
-// 					def jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
-// 					//sh 'sleep 150'		
-// 					 def buildresult =  "${jobresult.getResult()}"
-// 					echo "${buildresult}"
-// 					if("${buildresult}" != 'SUCCESS'){
-// 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-// 						       error("Downstream job failing-job failed.")
-// 					}
-// 					}else{echo "No issues"}
-// 				 }
-// 			       }
-// 		       }
+					def jobresult = build job: "${myval}", parameters: [string(name: 'BRANCH', value: 'main')], wait:true, propagate: false
+					//sh 'sleep 150'		
+					 def buildresult =  "${jobresult.getResult()}"
+					echo "${buildresult}"
+					if("${buildresult}" != 'SUCCESS'){
+						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+						       error("Downstream job failing-job failed.")
+					}
+					}else{echo "No issues"}
+				 }
+			    }
+		    }
+		       stage("Pipeline 1"){
+			       steps {
+	     			script {	       			
+					def jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
+					//sh 'sleep 150'		
+					 def buildresult =  "${jobresult.getResult()}"
+					echo "${buildresult}"
+					if("${buildresult}" != 'SUCCESS'){
+						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+						       error("Downstream job failing-job failed.")
+					}
+					}else{echo "No issues"}
+				 }
+			       }
+		       }
 	    
 	    
-// 	    }
-// 	    }
-//     }
-// }
+	    }
+	    }
+    }
+}
 
 
 
