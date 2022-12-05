@@ -7,8 +7,9 @@ pipeline {
         string(name: 'Repo_LIST', defaultValue: 'job-list.csv', description: 'Name of CSV file containing the list of images', trim: true)
     }
     stages {
-	    parallel {
-        stage('Parse the CSV') {
+	    stage('ParallelJob') {
+	    	parallel {
+        		stage('Parse the CSV') {
         steps {
             script {
 		    
@@ -64,7 +65,7 @@ pipeline {
 		    }
 	     
 	    }
-
+	    }
     }
 }
     
