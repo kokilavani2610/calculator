@@ -17,10 +17,10 @@ pipeline {
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
                             def fields = line.split(',')
                             echo fields[0] + ': ' +  fields[1];
-                             def jobname = fields[0] > myval                          
-                             def branchname = fields[1] > myval1
-				 stash 'myval'
-				 stash 'myval1'
+                             def jobname = fields[0]                           
+                             def branchname = fields[1] 
+				 stash includes:'fields[0]', name:'myval'
+				 //stash 'myval1'
 				 
                             //initiatebuild(jobname,branchname)
 			    //invokebuilds(repoList)
@@ -44,7 +44,7 @@ pipeline {
 					unstash 'myval'
 					unstash 'myval1'
 					
-					def jobresult = build job: "${myval}", parameters: [string(name: 'BRANCH', value: "${myval1}")], wait:true, propagate: false
+					def jobresult = build job: "${myval}", parameters: [string(name: 'BRANCH', value: 'main')], wait:true, propagate: false
 					//sh 'sleep 150'		
 					 def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
