@@ -62,11 +62,13 @@ def initiatebuild(String jobname,String branchname) {
 						       error("Downstream job failing-job failed.")
 					}
 					}else{echo "No issues"}
-		 }
-              }
-        }
+				 }
+				}
+		    }
+	    }
     }
 }
+		 
 	    
 
 		 
