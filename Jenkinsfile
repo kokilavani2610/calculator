@@ -94,7 +94,7 @@ def initiatebuild(String jobname,String branchname) {
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
-					if(${buildresult} != 'SUCCESS'){
+					if("${buildresult}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
 						       error("Downstream job failing-job failed.")
 					}
