@@ -33,6 +33,7 @@ pipeline {
                 }
 	    stage("Paralel"){
 	     parallel {
+		     steps {
 		    stage("${jobname}"){
 	     			script {
 	       			 if (NAMESPACE== sco) {
@@ -48,6 +49,7 @@ pipeline {
 				 }
 				}
 		    }
+		     }
 	    }
 	    }
     }
