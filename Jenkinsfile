@@ -32,13 +32,12 @@ pipeline {
                         }
                 }
 	    stage("Paralel"){
-	     parallel {	
+	       parallel {	
 		    stage("${jobname}"){
-	     			steps {
-	       			 if (NAMESPACE== sco) {
-					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: true, propagate: false
+	     			steps {	       			
+					 jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: true, propagate: false
 					//sh 'sleep 150'		
-					def buildresult =  "${jobresult.getResult()}"
+					 buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
 					if(${buildresult} != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
@@ -46,7 +45,7 @@ pipeline {
 					}
 					}else{echo "No issues"}
 				 }
-				}
+				
 		    }
 	     }
 	    }
