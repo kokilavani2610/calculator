@@ -36,6 +36,7 @@ pipeline {
 	    
 	       	
 		    stage("pmd-github"){
+			    steps {
 	     			script {	       			
 					def jobresult = build job: "pmd-github", parameters: [string(name: 'BRANCH', value: 'main')], wait:false, propagate: false
 					//sh 'sleep 150'		
@@ -47,9 +48,10 @@ pipeline {
 					}
 					}else{echo "No issues"}
 				 }
-				
+			    }
 		    }
 		       stage("Pipeline 1"){
+			       steps {
 	     			script {	       			
 					def jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
 					//sh 'sleep 150'		
@@ -61,7 +63,7 @@ pipeline {
 					}
 					}else{echo "No issues"}
 				 }
-				
+			       }
 		    }
 	     
 	    }
