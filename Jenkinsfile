@@ -47,11 +47,12 @@ pipeline {
     
 	    
 	       stage('Paralleljob'){
+		       msMap.each{k,v->
 	         parallel {
-			stage("pmd-github"){
+			 stage("${k}"){
 			    steps {
 	     			script {
-					msMap.each{k,v->
+					
 					
 						def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value:"${v}")], wait:true, propagate: false
 					//sh 'sleep 150'		
