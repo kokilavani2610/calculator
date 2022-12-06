@@ -29,8 +29,7 @@ pipeline {
 			    //invokebuilds(repoList)
 
                              }
-			    echo "readline... ${jobname}"
-			    echo "readline... ${branchname}"
+			
 			    
 
                     }else {
