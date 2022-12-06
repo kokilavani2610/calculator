@@ -50,7 +50,9 @@ pipeline {
 			 stage("pmd"){
 			    steps {
 	     			script {
+					def parallelStage = [:]
 					  msMap.each{k,v->
+						  parallelStage[k,v] = {
 					
 					   stage("${k}"){
 						
@@ -69,6 +71,7 @@ pipeline {
 					
 				 }
 			    }
+						  parallel parallelStage
 		    }
 // 		       stage("Pipeline 1"){
 // 			       steps {
