@@ -46,14 +46,14 @@ pipeline {
 
     
 	    
-	       stage('Paralleljob'){
-		     
-	         parallel {
+	       
 			 stage("pmd"){
 			    steps {
 	     			script {
 					  msMap.each{k,v->
-					stage("${k}"){
+					stage('Paralleljob'){		     
+	         			  parallel {
+					   stage("${k}"){
 						def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value:"${v}")], wait:true, propagate: false
 					//sh 'sleep 150'		
 					 def buildresult =  "${jobresult.getResult()}"
