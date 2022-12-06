@@ -25,7 +25,7 @@ pipeline {
 				 //stash includes:'jobname', name:'myval'
 				 //stash 'myval1'
 				 
-                            //initiatebuild(jobname,branchname)
+                            initiatebuild(msMap)
 			    //invokebuilds(repoList)
 
                              }
@@ -47,31 +47,31 @@ pipeline {
     
 	    
 	       
-			 stage("pmd"){
-			    steps {
-	     			script {
-					def parallelStage = [:]
-					  msMap.each{k,v->
-						  parallelStage[k,v] = {
+// 			 stage("pmd"){
+// 			    steps {
+// 	     			script {
+// 					def parallelStage = [:]
+// 					  msMap.each{k,v->
+// 						  parallelStage[k,v] = {
 					
-					   stage("${k}"){
+// 					   stage("${k}"){
 						
-						def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value:"${v}")], wait:true, propagate: false
-					//sh 'sleep 150'		
-					 def buildresult =  "${jobresult.getResult()}"
-					echo "${buildresult}"
-					if("${buildresult}" != 'SUCCESS'){
-						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-						       error("Downstream job failing-job failed.")
-					}
-					}else{echo "No issues"}
-					   }
-						  }
-					  }
-				}
-			    }
-				 parallel parallelStage
-			 }
+// 						def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value:"${v}")], wait:true, propagate: false
+// 					//sh 'sleep 150'		
+// 					 def buildresult =  "${jobresult.getResult()}"
+// 					echo "${buildresult}"
+// 					if("${buildresult}" != 'SUCCESS'){
+// 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+// 						       error("Downstream job failing-job failed.")
+// 					}
+// 					}else{echo "No issues"}
+// 					   }
+// 						  }
+// 					  }
+// 				}
+// 			    }
+// 				 parallel parallelStage
+// 			 }
     }
 }
 
@@ -100,12 +100,13 @@ pipeline {
 
 
 
-def initiatebuild(String jobname,String branchname) {
-   
-		    stage("${jobname}"){			    
-	     			script {
-	       			 if (NAMESPACE== "sco") {
-					def jobresult = build job: "${jobname}", parameters: [string(name: 'BRANCH', value: "${branchname}")], wait: true, propagate: false
+def initiatebuild(msMap) {
+	def parallelStage = [:]
+	 msMap.each{k,v->
+		  parallelStage[k,v] = {
+			  stage("${k}"){
+				  script {	       			 
+					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
@@ -115,12 +116,18 @@ def initiatebuild(String jobname,String branchname) {
 					}
 					}else{echo "No issues"}
 				 }
-				}
-				
-			    
-	 
-    }
+			  }
+		  }
+	 }
+	parallel parallelStage
 }
+						 
+					
+					   
+					 
+						
+   
+		    		
 		 
 	    
 
