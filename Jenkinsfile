@@ -65,14 +65,18 @@ pipeline {
 						       error("Downstream job failing-job failed.")
 					}
 					}else{echo "No issues"}
-							   
-						   
-					
-					
-				 }
+					   }
+						  }
+					  }
+				}
 			    }
-						  parallel parallelStage
-		    }
+				 parallel parallelStage
+			 }
+   
+	
+
+							   
+	
 // 		       stage("Pipeline 1"){
 // 			       steps {
 // 	     			script {	       			
