@@ -25,10 +25,12 @@ pipeline {
 				 //stash includes:'jobname', name:'myval'
 				 //stash 'myval1'
 				 
-                            initiatebuild(msMap)
+                            
 			    //invokebuilds(repoList)
 
                              }
+			    msMap.size
+			    initiatebuild(msMap)
 			
 			    
 
