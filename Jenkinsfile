@@ -51,11 +51,9 @@ pipeline {
 			    steps {
 	     			script {
 					  msMap.each{k,v->
-					stage('Paralleljob'){		     
-	         			  parallel {
+					
 					   stage("${k}"){
-						   steps{
-							   script{
+						
 						def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value:"${v}")], wait:true, propagate: false
 					//sh 'sleep 150'		
 					 def buildresult =  "${jobresult.getResult()}"
@@ -65,10 +63,10 @@ pipeline {
 						       error("Downstream job failing-job failed.")
 					}
 					}else{echo "No issues"}
-							   }
-						   }
-					}
-					}
+							   
+						   
+					
+					
 				 }
 			    }
 		    }
