@@ -72,6 +72,9 @@ pipeline {
 			    }
 				 parallel parallelStage
 			 }
+    }
+}
+
    
 	
 
@@ -92,13 +95,7 @@ pipeline {
 // 				 }
 // 			       }
 // 		       }
-	    }
-	    
-	    
-	    }
-	    
-    }
-}
+	  
 
 
 
