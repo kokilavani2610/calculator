@@ -66,21 +66,21 @@ pipeline {
 				 }
 			    }
 		    }
-		       stage("Pipeline 1"){
-			       steps {
-	     			script {	       			
-					def jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
-					//sh 'sleep 150'		
-					 def buildresult =  "${jobresult.getResult()}"
-					echo "${buildresult}"
-					if("${buildresult}" != 'SUCCESS'){
-						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-						       error("Downstream job failing-job failed.")
-					}
-					}else{echo "No issues"}
-				 }
-			       }
-		       }
+// 		       stage("Pipeline 1"){
+// 			       steps {
+// 	     			script {	       			
+// 					def jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
+// 					//sh 'sleep 150'		
+// 					 def buildresult =  "${jobresult.getResult()}"
+// 					echo "${buildresult}"
+// 					if("${buildresult}" != 'SUCCESS'){
+// 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+// 						       error("Downstream job failing-job failed.")
+// 					}
+// 					}else{echo "No issues"}
+// 				 }
+// 			       }
+// 		       }
 	    }
 	    
 	    
