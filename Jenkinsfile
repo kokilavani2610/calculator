@@ -1,6 +1,5 @@
 def repoList = 'job-list.csv'
-def jobname 
-def branchname
+def msMap =[:]
 pipeline {
     agent any
     parameters {
@@ -18,8 +17,11 @@ pipeline {
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
                             def fields = line.split(',')
                             echo fields[0] + ': ' +  fields[1];
-                              jobname = fields[0]                           
-                              branchname = fields[1] 
+                             def jobname = fields[0]                           
+                              def branchname = fields[1]
+				 if(jobname== fields[0]){
+				 	msMap.put(jobname,branchname)
+				 }
 				 //stash includes:'jobname', name:'myval'
 				 //stash 'myval1'
 				 
@@ -50,11 +52,9 @@ pipeline {
 			stage("pmd-github"){
 			    steps {
 	     			script {
-					//unstash 'myval'
-					//unstash 'myval1'
-					//echo "in stage...${jobname}"
+					msMap.each{k,v->
 					
-					def jobresult = build job: "pmd-github", parameters: [string(name: 'BRANCH', value: 'main')], wait:true, propagate: false
+						def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value:"${v}")], wait:true, propagate: false
 					//sh 'sleep 150'		
 					 def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
@@ -63,6 +63,7 @@ pipeline {
 						       error("Downstream job failing-job failed.")
 					}
 					}else{echo "No issues"}
+					}
 				 }
 			    }
 		    }
