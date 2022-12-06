@@ -118,8 +118,7 @@ def initiatebuild(msMap) {
 				 }
 			  }
 		  }
-	 }
-	parallel parallelStage
+	 }	
 }
 						 
 					
