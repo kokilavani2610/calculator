@@ -31,7 +31,7 @@ pipeline {
 				 }		    
 				
 			    println msMap.size() 
-			    println msList.get()
+			    println msList
 			    initiatebuild(msMap)	    
 
                     }else {
