@@ -24,8 +24,8 @@ pipeline {
 				 msList.add("${branchname}")
 				 msList.add("${imagetag}")
 				msMap.put("${jobname}",msList)
-				 for  (i=0;i<=2;1++){
-				 msMap.each{k[i], v[i,i++] -> println "${k}:${v}"}
+				 for(i=0;i<=2;i++){
+				 	msMap.each{k[i], v[i,i++] -> println "${k}:${v}"}
 				 }
 				
                              }
