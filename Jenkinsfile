@@ -21,9 +21,10 @@ pipeline {
                              def jobname = fields[0]                           
                               def branchname = fields[1]
 				 def imagetag =fields[2]				
-				 msList.add("${branchname}")
-				 msList.add("${imagetag}")
-				msMap.put("${jobname}",msList)			 
+// 				 msList.add("${branchname}")
+// 				 msList.add("${imagetag}")
+				msMap.put("${jobname}","${branchname}")
+				msMap.put("${jobname}","${imagetag}")
 				
                              }
 			    for(i in msMap){
@@ -31,7 +32,7 @@ pipeline {
 				 }		    
 				
 			    println msMap.size() 
-			    println msList
+			   // println msList
 			    initiatebuild(msMap)	    
 
                     }else {
