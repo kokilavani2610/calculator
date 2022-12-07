@@ -28,9 +28,9 @@ pipeline {
                              }
 			    for(i in msMap){
 				 	 println "${i.key}-${i.value}"
-				 }
-			    
-				println msMap.size() 
+				 }		    
+				
+			    println msMap.size() 
 			    println msList.get()
 			    initiatebuild(msMap)	    
 
