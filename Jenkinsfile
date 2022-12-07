@@ -1,5 +1,6 @@
 def repoList = 'job-list.csv'
 def msMap =[:]
+def msList=[]
 pipeline {
     agent any
     parameters {
@@ -16,15 +17,16 @@ pipeline {
                         echo 'File found'
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
                             def fields = line.split(',')
-                            echo fields[0] + ': ' +  fields[1];
+                            echo fields[0] + ': ' +  fields[1]+':'+fields[2];
                              def jobname = fields[0]                           
                               def branchname = fields[1]
-				 
-				 if(jobname== fields[0]){
-				 	msMap.put(jobname,branchname)
-				 }				
+				 def imagetag =fields[2]
+				 msList.add(branchname,imagetag)
+				 msMap.put(jobname,msList) 
+				
                              }
-			    msMap.size
+			    msMap.each{k, v -> println "${k}:${v}"}
+				  
 			    initiatebuild(msMap)	    
 
                     }else {
