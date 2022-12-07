@@ -23,12 +23,12 @@ pipeline {
 				 def imagetag =fields[2]				
 				 msList.add("${branchname}")
 				 msList.add("${imagetag}")
-				msMap.put("${jobname}",msList)
-				 for(i in msMap){
-				 	 println "${i.key}, ${i.value}"
-				 }
+				msMap.put("${jobname}",msList)			 
 				
                              }
+			    for(i in msMap){
+				 	 println "${i.key}, ${i.value}"
+				 }
 			    
 				println msMap.size() 
 			    println msList.size()
