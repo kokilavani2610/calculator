@@ -24,11 +24,12 @@ pipeline {
 				 msList.add("${branchname}")
 				 msList.add("${imagetag}")
 				msMap.put("${jobname}",msList)
+				 //for  (i=0;i<=
 				 msMap.each{k, v -> println "${k}:${v}"}
 				
                              }
 			    
-				  
+				println msMap.size()  
 			    initiatebuild(msMap)	    
 
                     }else {
