@@ -29,7 +29,8 @@ pipeline {
 				
                              }
 			    
-				println msMap.size()  
+				println msMap.size() 
+			    println msList.size()
 			    initiatebuild(msMap)	    
 
                     }else {
