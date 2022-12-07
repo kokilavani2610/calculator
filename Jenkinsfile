@@ -1,6 +1,6 @@
 def repoList = 'job-list.csv'
 def msMap =[:]
-def msList=[]
+def msMap1=[:]
 pipeline {
     agent any
     parameters {
@@ -23,13 +23,16 @@ pipeline {
 				 def imagetag =fields[2]				
 // 				 msList.add("${branchname}")
 // 				 msList.add("${imagetag}")
-				msMap.put("${jobname}","${branchname}","${imagetag}")
-				//msMap.put("${jobname}","${imagetag}")
+				msMap.put("${jobname}","${branchname}")
+				msMap1.put("${jobname}","${imagetag}")
 				
                              }
 			    for(i in msMap){
 				 	 println "${i.key}-${i.value}"
-				 }		    
+				 }
+			    for(i in msMap1){
+				 	 println "${i.key}-${i.value}"
+				 }
 				
 			    println msMap.keySet() 
 			    println msMap.values()
