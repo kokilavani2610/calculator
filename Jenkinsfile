@@ -19,20 +19,13 @@ pipeline {
                             echo fields[0] + ': ' +  fields[1];
                              def jobname = fields[0]                           
                               def branchname = fields[1]
+				 
 				 if(jobname== fields[0]){
 				 	msMap.put(jobname,branchname)
-				 }
-				 //stash includes:'jobname', name:'myval'
-				 //stash 'myval1'
-				 
-                            
-			    //invokebuilds(repoList)
-
+				 }				
                              }
 			    msMap.size
-			    initiatebuild(msMap)
-			
-			    
+			    initiatebuild(msMap)	    
 
                     }else {
                         echo ' File Not found. Failing.'
