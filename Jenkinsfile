@@ -37,6 +37,10 @@ pipeline {
 			    println msMap.keySet() 
 			    println msMap.values()
 			   // println msList
+			    (msMap.keySet() as List).collate(3).each{
+    			 	 def Finalmap = msMap.subMap(it)
+    			  	 println Finalmap
+				}
 			    initiatebuild(msMap)	    
 
                     }else {
