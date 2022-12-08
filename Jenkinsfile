@@ -118,7 +118,7 @@ def initiatebuild(msMap,size) {
 	def parallelStage = [:]
 	println size	
 	 msMap.each{k,v->
-		  parallelStage[k,v] = {			  
+		  //parallelStage[k,v] = {			  
 			  stage("${k}"){
 				  script {
 					 for(i=0;i<=size;i++){
@@ -136,7 +136,7 @@ def initiatebuild(msMap,size) {
 				 }
 			  }
 			}
-		  }
+		  //}
 	 }
 	 
 	 
