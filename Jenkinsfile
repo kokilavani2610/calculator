@@ -116,11 +116,12 @@ pipeline {
 
 def initiatebuild(msMap,size) {
 	def parallelStage = [:]
+	println size
+	for(i=0;i<=size;i++){
+		int period =i*30
 	
 	 msMap.each{k,v->
-		  //parallelStage[k,v] = {
-			  //for(i=0;i<=size;i++){
-				  //int period =i*30
+		  parallelStage[k,v] = {			  
 			  stage("${k}"){
 				  script {	       			 
 					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false, quietPeriod: 30
@@ -134,12 +135,12 @@ def initiatebuild(msMap,size) {
 					}else{echo "No issues"}
 				 }
 			  }
-			  //}
-		  //}
+			}
+		  }
 	 }
 	 
 	 
-	//parallel parallelStage
+	parallel parallelStage
 	 
 }
 						 
