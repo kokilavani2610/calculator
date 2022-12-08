@@ -1,6 +1,7 @@
 def repoList = 'job-list.csv'
 def msMap =[:]
 def msMap1=[:]
+def FinalMap =[:]
 pipeline {
     agent any
     parameters {
@@ -38,8 +39,8 @@ pipeline {
 // 			    println msMap.values()
 			   // println msList
 			    (msMap.keySet() as List).collate(3).each{
-    			 	 def Finalmap = msMap.subMap(it)
-    			  	 println Finalmap
+    			 	  Finalmap = msMap.subMap(it)
+    			  	 //println Finalmap
 				}
 			    initiatebuild(msMap)	    
 
@@ -113,7 +114,9 @@ pipeline {
 
 def initiatebuild(msMap) {
 	def parallelStage = [:]
-	 msMap.each{k,v->
+	 (msMap.keySet() as List).collate(3).each{
+    			Finalmap = msMap.subMap(it)    			  	 
+	 FinalMap.each{k,v->
 		  parallelStage[k,v] = {
 			  stage("${k}"){
 				  script {	       			 
@@ -130,7 +133,10 @@ def initiatebuild(msMap) {
 			  }
 		  }
 	 }
+	 }
+	 
 	parallel parallelStage
+	 
 }
 						 
 					
