@@ -115,7 +115,8 @@ pipeline {
 def initiatebuild(msMap) {
 	def parallelStage = [:]
 	 (msMap.keySet() as List).collate(3).each{
-    			FinalMap = msMap.subMap(it)    			  	 
+    			FinalMap = msMap.subMap(it)    		
+		 println FinalMap
 	 FinalMap.each{k,v->
 		  parallelStage[k,v] = {
 			  stage("${k}"){
