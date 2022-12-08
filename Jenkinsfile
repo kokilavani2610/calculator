@@ -38,10 +38,10 @@ pipeline {
 // 			    println msMap.keySet() 
 // 			    println msMap.values()
 			   // println msList
-			    (msMap.keySet() as List).collate(3).each{
-    			 	  Finalmap = msMap.subMap(it)
-    			  	 //println Finalmap
-				}
+// 			    (msMap.keySet() as List).collate(3).each{
+//     			 	  Finalmap = msMap.subMap(it)
+//     			  	 println Finalmap
+// 				}
 			    initiatebuild(msMap)	    
 
                     }else {
@@ -115,7 +115,7 @@ pipeline {
 def initiatebuild(msMap) {
 	def parallelStage = [:]
 	 (msMap.keySet() as List).collate(3).each{
-    			Finalmap = msMap.subMap(it)    			  	 
+    			FinalMap = msMap.subMap(it)    			  	 
 	 FinalMap.each{k,v->
 		  parallelStage[k,v] = {
 			  stage("${k}"){
