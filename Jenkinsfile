@@ -114,14 +114,12 @@ pipeline {
 
 def initiatebuild(msMap) {
 	def parallelStage = [:]
-	 (msMap.keySet() as List).collate(3).each{
-    			FinalMap = msMap.subMap(it)    		
-		 println FinalMap
-	 FinalMap.each{k,v->
+	
+	 msMap.each{k,v->
 		  parallelStage[k,v] = {
 			  stage("${k}"){
 				  script {	       			 
-					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false
+					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false, quietPeriod: 10
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
@@ -134,7 +132,7 @@ def initiatebuild(msMap) {
 			  }
 		  }
 	 }
-	 }
+	 
 	 
 	parallel parallelStage
 	 
