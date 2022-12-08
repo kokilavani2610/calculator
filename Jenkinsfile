@@ -2,6 +2,7 @@ def repoList = 'job-list.csv'
 def msMap =[:]
 def msMap1=[:]
 def FinalMap =[:]
+def size
 pipeline {
     agent any
     parameters {
@@ -43,7 +44,7 @@ pipeline {
 //     			  	 println Finalmap
 // 				}
 			    initiatebuild(msMap)	    
-
+				size =msMap.size()
                     }else {
                         echo ' File Not found. Failing.'
                     }
@@ -117,9 +118,11 @@ def initiatebuild(msMap) {
 	
 	 msMap.each{k,v->
 		  parallelStage[k,v] = {
+			  for(i=0;i<=size;i++){
+				  int period =i*30
 			  stage("${k}"){
 				  script {	       			 
-					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false, quietPeriod: 10
+					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false, quietPeriod: period
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
@@ -129,6 +132,7 @@ def initiatebuild(msMap) {
 					}
 					}else{echo "No issues"}
 				 }
+			  }
 			  }
 		  }
 	 }
