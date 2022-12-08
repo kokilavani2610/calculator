@@ -1,2 +1,5 @@
 pmd-github,main,abc
 Pipeline 1,pmd,abc
+springboot,main,abc
+pmd,main,abc
+java-11-example,pmd,abc
