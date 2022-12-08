@@ -43,8 +43,9 @@ pipeline {
 //     			 	  Finalmap = msMap.subMap(it)
 //     			  	 println Finalmap
 // 				}
-			    initiatebuild(msMap)	    
-				size =msMap.size()
+			    size =msMap.size()
+			    initiatebuild(msMap,size)	    
+				
                     }else {
                         echo ' File Not found. Failing.'
                     }
@@ -113,7 +114,7 @@ pipeline {
 
 
 
-def initiatebuild(msMap) {
+def initiatebuild(msMap,size) {
 	def parallelStage = [:]
 	
 	 msMap.each{k,v->
