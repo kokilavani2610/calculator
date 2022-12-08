@@ -27,15 +27,15 @@ pipeline {
 				msMap1.put("${jobname}","${imagetag}")
 				
                              }
-			    for(i in msMap){
-				 	 println "${i.key}-${i.value}"
-				 }
-			    for(i in msMap1){
-				 	 println "${i.key}-${i.value}"
-				 }
+// 			    for(i in msMap){
+// 				 	 println "${i.key}-${i.value}"
+// 				 }
+// 			    for(i in msMap1){
+// 				 	 println "${i.key}-${i.value}"
+// 				 }
 				
-			    println msMap.keySet() 
-			    println msMap.values()
+// 			    println msMap.keySet() 
+// 			    println msMap.values()
 			   // println msList
 			    (msMap.keySet() as List).collate(3).each{
     			 	 def Finalmap = msMap.subMap(it)
