@@ -116,14 +116,16 @@ pipeline {
 
 def initiatebuild(msMap,size) {
 	def parallelStage = [:]
+	int count = 0
 	println size	
 	 msMap.each{k,v->
-		  //parallelStage[k,v] = {			  
+		  parallelStage[k,v] = {			  
 			  stage("${k}"){
 				  script {
-					 for(i=0;i<=size;i++){
-						int period =i*30
-					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false, quietPeriod: period
+					 //for(i=0;i<=size;i++){
+					  
+						int period =count*30
+			def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false, quietPeriod: period
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
@@ -132,11 +134,12 @@ def initiatebuild(msMap,size) {
 						       error("Downstream job failing-job failed.")
 					}
 					}else{echo "No issues"}
+					  count++
 					 
-				 }
+				// }
 			  }
 			}
-		  //}
+		  }
 	 }
 	 
 	 
