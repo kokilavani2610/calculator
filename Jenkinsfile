@@ -39,12 +39,12 @@ pipeline {
 // 			    println msMap.keySet() 
 // 			    println msMap.values()
 			   // println msList
-// 			    (msMap.keySet() as List).collate(3).each{
-//     			 	  Finalmap = msMap.subMap(it)
-//     			  	 println Finalmap
-// 				}
-			    size =msMap.size()
-			    initiatebuild(msMap,size)	    
+			    (msMap.keySet() as List).collate(3).each{
+    			 	  FinalMap = msMap.subMap(it)
+    			  	 initiatebuild(FinalMap)
+				}
+			    //size =msMap.size()
+			    //initiatebuild(msMap,size)	    
 				
                     }else {
                         echo ' File Not found. Failing.'
@@ -114,10 +114,10 @@ pipeline {
 
 
 
-def initiatebuild(msMap,size) {
+def initiatebuild(msMap) {
 	def parallelStage = [:]
 	int count = 0
-	println size	
+	//println size	
 	 msMap.each{k,v->
 		  parallelStage[k,v] = {			  
 			  stage("${k}"){
