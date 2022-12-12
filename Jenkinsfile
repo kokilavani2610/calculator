@@ -58,7 +58,7 @@ pipeline {
 
 def initiatebuild(msMap) {	
 	def parallelStage = [:]	
-	def x
+	def x = new String[3]
 	 msMap.each{k,v->
 		  def branch = v.split('##')
 		 for( String values : branch ) {
