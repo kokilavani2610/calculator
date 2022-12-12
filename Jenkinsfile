@@ -21,14 +21,14 @@ pipeline {
                             def fields = line.split(',')
                             //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
                              def jobname = fields[0]                           
-                              def branchname = fields[1]
-				 def imagetag =fields[2]				
-// 				 msList.add("${branchname}")
-// 				 msList.add("${imagetag}")
+                              def branchname = fields[1]+'##'+fields[2]
+				 				
+
 				msMap.put("${jobname}","${branchname}")
-				msMap1.put("${jobname}","${imagetag}")
+				//msMap1.put("${jobname}","${imagetag}")
 				
                              }
+			    
 // 			    for(i in msMap){
 // 				 	 println "${i.key}-${i.value}"
 // 				 }
