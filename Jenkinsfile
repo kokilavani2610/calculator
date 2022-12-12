@@ -63,7 +63,7 @@ def initiatebuild(msMap) {
 		 for( String values : branch ) {
       			println(values)
 		 }
-		 def firstValue = branch.tokenize("##")[0]
+		 def firstValue = branch.tokenize("#")[0]
 		 println firstValue
 		  parallelStage[k,branch] = {			  
 			  stage("${k}"){
