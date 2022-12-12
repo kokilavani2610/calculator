@@ -46,12 +46,13 @@ pipeline {
                     }else {
                         echo ' File Not found. Failing.'
                     }
+	    }
+	}
+	}
+    }
+}
 
-                                }
-
-                        }
-                }
-
+                                
 
 def initiatebuild(msMap) {
 	def parallelStage = [:]		
@@ -70,6 +71,7 @@ def initiatebuild(msMap) {
 						       error("Downstream job failing-job failed.")
 					}
 					}else{echo "No issues"}
+				  
 				  }
 			  }
 		  }
