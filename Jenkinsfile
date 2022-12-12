@@ -51,80 +51,17 @@ pipeline {
 
                         }
                 }
-	    
-	    
-    
-
-    
-	    
-	       
-// 			 stage("pmd"){
-// 			    steps {
-// 	     			script {
-// 					def parallelStage = [:]
-// 					  msMap.each{k,v->
-// 						  parallelStage[k,v] = {
-					
-// 					   stage("${k}"){
-						
-// 						def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value:"${v}")], wait:true, propagate: false
-// 					//sh 'sleep 150'		
-// 					 def buildresult =  "${jobresult.getResult()}"
-// 					echo "${buildresult}"
-// 					if("${buildresult}" != 'SUCCESS'){
-// 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-// 						       error("Downstream job failing-job failed.")
-// 					}
-// 					}else{echo "No issues"}
-// 					   }
-// 						  }
-// 					  }
-// 				}
-// 			    }
-// 				 parallel parallelStage
-// 			 }
-    }
-}
-
-   
-	
-
-							   
-	
-// 		       stage("Pipeline 1"){
-// 			       steps {
-// 	     			script {	       			
-// 					def jobresult = build job: "Pipeline 1", parameters: [string(name: 'BRANCH', value: 'pmd')], wait: true, propagate: false
-// 					//sh 'sleep 150'		
-// 					 def buildresult =  "${jobresult.getResult()}"
-// 					echo "${buildresult}"
-// 					if("${buildresult}" != 'SUCCESS'){
-// 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-// 						       error("Downstream job failing-job failed.")
-// 					}
-// 					}else{echo "No issues"}
-// 				 }
-// 			       }
-// 		       }
-	  
-
-
 
 
 def initiatebuild(msMap) {
-	def parallelStage = [:]
-	int count = 0
-	//println size	
+	def parallelStage = [:]		
 	 msMap.each{k,v->
-		 branch = v.split('##')
+		 String branch = v.substring(0,'##')
 		 println branch
 		  parallelStage[k,v] = {			  
 			  stage("${k}"){
-				  script {
-					 //for(i=0;i<=size;i++){
-					  
-						int period =count*30
-			def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false, quietPeriod: period
+				  script {					 
+					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
@@ -133,18 +70,21 @@ def initiatebuild(msMap) {
 						       error("Downstream job failing-job failed.")
 					}
 					}else{echo "No issues"}
-					  count++
-					 
-				// }
+				  }
 			  }
-			}
 		  }
 	 }
-	 
-	 
 	parallel parallelStage
-	 
 }
+					  
+					 
+				
+			  
+	 
+	 
+	
+	 
+
 						 
 					
 					   
