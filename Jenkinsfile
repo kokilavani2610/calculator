@@ -21,11 +21,8 @@ pipeline {
                             def fields = line.split(',')
                             //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
                              def jobname = fields[0]                           
-                              def branchname = fields[1]+'##'+fields[2]
-				 				
-
-				msMap.put("${jobname}","${branchname}")
-				//msMap1.put("${jobname}","${imagetag}")
+                              def branchname = fields[1]+'##'+fields[2]	 				
+				msMap.put("${jobname}","${branchname}")		
 				
                              }
 			    
@@ -119,6 +116,8 @@ def initiatebuild(msMap) {
 	int count = 0
 	//println size	
 	 msMap.each{k,v->
+		 branch = v.split('##')
+		 println branch
 		  parallelStage[k,v] = {			  
 			  stage("${k}"){
 				  script {
