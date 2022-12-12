@@ -2,6 +2,8 @@ def repoList = 'job-list.csv'
 def msMap =[:]
 def msMap1=[:]
 def FinalMap =[:]
+def branch
+def image
 def size
 pipeline {
     agent any
@@ -54,18 +56,19 @@ pipeline {
 
                                 
 
-def initiatebuild(msMap) {
-	
+def initiatebuild(msMap) {	
 	def parallelStage = [:]		
 	 msMap.each{k,v->
 		  def branch = v.split('##')
 		 for( String values : branch ) {
       			println(values)
-		 }		 
-		  parallelStage[k,v] = {			  
+		 }
+		 def firstValue = branch.tokenize("##")[0]
+		 println firstValue
+		  parallelStage[k,branch] = {			  
 			  stage("${k}"){
 				  script {					 
-					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${v}")], wait: true, propagate: false
+					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true, propagate: false
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
