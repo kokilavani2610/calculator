@@ -61,13 +61,11 @@ def initiatebuild(msMap) {
 	def x = new String[3]
 	 msMap.each{k,v->
 		  def branch = v.split('##')
-		 for( String values : branch ) {
-      			 x = values
-			 //def y = println(values)
-			 println x
-			 //println y
+		 for( String[] values : branch ) {
+			 println(values[0])
+      			 
 		 }
-		 println x[0]
+		// println x[0]
 		  parallelStage[k,branch] = {			  
 			  stage("${k}"){
 				  script {					 
