@@ -61,7 +61,7 @@ def initiatebuild(msMap) {
 	 msMap.each{k,v->
 		  def branch = v.split('##')
 		 for( String values : branch ) {
-      			def x = println(values)
+      			def x = values
 			 //def y = println(values)
 			 println x
 			 //println y
