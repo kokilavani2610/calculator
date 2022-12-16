@@ -58,16 +58,16 @@ pipeline {
 
 def initiatebuild(msMap) {	
 	def parallelStage = [:]	
-	
+	def jobresult
 	 msMap.each{k,v->		
 		  parallelStage[k,v] = {			  
 			  stage("${k}"){
 				  script {
 					 def (branch,image) = v.split('##')
 					if(BUILD_TYPE == "deploy_only"){							
-					def jobresult = build job: "${k}", parameters: [string(name: 'IMAGE_TAG', value: "${image}")], wait: true, propagate: false
+					   jobresult = build job: "${k}", parameters: [string(name: 'IMAGE_TAG', value: "${image}")], wait: true, propagate: false
 					} else{
-						def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true, propagate: false
+					  jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true, propagate: false
 					}
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
