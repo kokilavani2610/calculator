@@ -1,10 +1,10 @@
 def repoList = 'job-list.csv'
 def msMap =[:]
-def msMap1=[:]
+def paralleljob_size =3
 def FinalMap =[:]
 def branch
 def image
-def size
+
 pipeline {
     agent any
     parameters {
@@ -22,23 +22,22 @@ pipeline {
                          readFile("scripts/job-list.csv").split('\n').each { line, count ->
                             def fields = line.split(',')
                             //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
-                             def jobname = fields[0]                           
-                              def branchname = fields[1]+'##'+fields[2]	 				
+                             def jobname = fields[0]
+		
+			 if(fields[2]==null){
+                              def branchname = fields[1]
+			 }else if(fields[1]==null){
+				 def branchname= fields[2]
+			 }else{
+				 def branchname = fields[1]+'##'+fields[2]
+			 }
+				 
 				msMap.put("${jobname}","${branchname}")		
 				
                              }
 			    
-// 			    for(i in msMap){
-// 				 	 println "${i.key}-${i.value}"
-// 				 }
-// 			    for(i in msMap1){
-// 				 	 println "${i.key}-${i.value}"
-// 				 }
-				
-// 			    println msMap.keySet() 
-// 			    println msMap.values()
-			   // println msList
-			    (msMap.keySet() as List).collate(3).each{
+
+			    (msMap.keySet() as List).collate(paralleljob_size).each{
     			 	  FinalMap = msMap.subMap(it)
     			  	 initiatebuild(FinalMap)
 				}
@@ -59,14 +58,16 @@ pipeline {
 def initiatebuild(msMap) {	
 	def parallelStage = [:]	
 	
-	 msMap.each{k,v->
-		  def (branch,image) = v.split('##')
-		 println branch
-		 println image
-		  parallelStage[k,branch] = {			  
+	 msMap.each{k,v->		
+		  parallelStage[k,v] = {			  
 			  stage("${k}"){
-				  script {					 
-					def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true, propagate: false
+				  script {
+					 def (branch,image) = v.split('##')
+					if(BUILD_TYPE == "deploy_only"){							
+					def jobresult = build job: "${k}", parameters: [string(name: 'IMAGE_TAG', value: "${image}")], wait: true, propagate: false
+					} else{
+						def jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true, propagate: false
+					}
 					//sh 'sleep 150'		
 					def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
