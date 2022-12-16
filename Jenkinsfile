@@ -4,6 +4,7 @@ def paralleljob_size =3
 def FinalMap =[:]
 def branch
 def image
+def branchname
 
 pipeline {
     agent any
@@ -25,11 +26,11 @@ pipeline {
                              def jobname = fields[0]
 		
 			 if(fields[2]==null){
-                              def branchname = fields[1]
+                               branchname = fields[1]
 			 }else if(fields[1]==null){
-				 def branchname= fields[2]
+				  branchname= fields[2]
 			 }else{
-				 def branchname = fields[1]+'##'+fields[2]
+				  branchname = fields[1]+'##'+fields[2]
 			 }
 				 
 				msMap.put("${jobname}","${branchname}")		
