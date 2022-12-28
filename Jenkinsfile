@@ -10,19 +10,17 @@ pipeline {
     agent any
     parameters {
         string(name: 'NAMESPACE', defaultValue: 'sco', description: 'Namespace name', trim: true)
-        string(name: 'Repo_LIST', defaultValue: 'job-list.csv', description: 'Name of CSV file containing the list of images', trim: true)
+        string(name: 'REPO_LIST', defaultValue: 'scripts/job-list.csv', description: 'Name of CSV file containing the list of images', trim: true)
     }
     stages {
 
         stage('Parse the CSV') {
         steps {
             script {
-		    def file = 'scripts/job-list.csv'                 
-                     def fields
-		    file.readLines().eachWithIndex { line, index ->
-    			if (index) {
-				
-				 fields = line.split(',').findAll { 'null' != it && it}
+		    if (fileExists(params.REPO_LIST)) {
+                        echo 'File found'
+                         readFile(params.REPO_LIST, readFirstLine: false).split('\n').each { line, count ->
+                            def fields = line.split(',')
 			
                             //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
                              def jobname = fields[0]
@@ -38,17 +36,22 @@ pipeline {
 				msMap.put("${jobname}","${branchname}")		
 				
                              }
-		    }
+		    
 			    
 
 			    (msMap.keySet() as List).collate(paralleljob_size).each{
     			 	  FinalMap = msMap.subMap(it)
     			  	 initiatebuild(FinalMap)
 				}
+			    }else {
+                        echo ' File Not found. Failing.'
+                    }
+
 			        
 				
                     }
 	    }
+	}
 	
 	}
     }
