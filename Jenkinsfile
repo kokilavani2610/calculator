@@ -17,11 +17,15 @@ pipeline {
         stage('Parse the CSV') {
         steps {
             script {
-		    
-                    if (fileExists('scripts/job-list.csv')) {
-                        echo 'File found'
-                         readFile("scripts/job-list.csv").split('\n').each { line, count ->
-                            def fields = line.split(',')
+		    def file = new File('scripts/job-list.csv')
+                    
+                         
+                          
+		    file.readLines().eachWithIndex { line, index ->
+    			if (index) {
+				
+				def fields = line.split(',').findAll { 'null' != it && it}
+			}
                             //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
                              def jobname = fields[0]
 		
@@ -42,8 +46,7 @@ pipeline {
     			 	  FinalMap = msMap.subMap(it)
     			  	 initiatebuild(FinalMap)
 				}
-			    //size =msMap.size()
-			    //initiatebuild(msMap,size)	    
+			        
 				
                     }else {
                         echo ' File Not found. Failing.'
@@ -69,7 +72,7 @@ def initiatebuild(msMap) {
 					} else{
 					  jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true, propagate: false
 					}
-					//sh 'sleep 150'		
+					
 					def buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
 					if("${buildresult}" != 'SUCCESS'){
