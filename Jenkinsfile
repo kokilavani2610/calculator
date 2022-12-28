@@ -18,11 +18,11 @@ pipeline {
         steps {
             script {
 		    def file = 'scripts/job-list.csv'                 
-                     
+                     def fields
 		    file.readLines().eachWithIndex { line, index ->
     			if (index) {
 				
-				def fields = line.split(',').findAll { 'null' != it && it}
+				 fields = line.split(',').findAll { 'null' != it && it}
 			}
                             //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
                              def jobname = fields[0]
