@@ -17,7 +17,7 @@ pipeline {
         stage('Parse the CSV') {
         steps {
             script {
-		    def file = new File('scripts/job-list.csv')                 
+		    def file = 'scripts/job-list.csv'                 
                      
 		    file.readLines().eachWithIndex { line, index ->
     			if (index) {
