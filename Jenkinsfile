@@ -23,7 +23,7 @@ pipeline {
     			if (index) {
 				
 				 fields = line.split(',').findAll { 'null' != it && it}
-			}
+			
                             //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
                              def jobname = fields[0]
 		
@@ -38,6 +38,7 @@ pipeline {
 				msMap.put("${jobname}","${branchname}")		
 				
                              }
+		    }
 			    
 
 			    (msMap.keySet() as List).collate(paralleljob_size).each{
