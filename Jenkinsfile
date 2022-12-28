@@ -25,7 +25,7 @@ pipeline {
                            // def fields = line.split(',')
 					 def fields = line.split(',').findAll { 'null' != it && it}
 			
-                            //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
+                            echo fields[0] + ': ' +  fields[1]+':'+fields[2];
                              def jobname = fields[0]
 		
 			 if(fields[2]==null){
@@ -36,7 +36,8 @@ pipeline {
 				  branchname = fields[1]+'##'+fields[2]
 			 }
 				 
-				msMap.put("${jobname}","${branchname}")		
+				msMap.put("${jobname}","${branchname}")
+					 echo msMap
 				
                              }
 			 }
