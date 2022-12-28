@@ -19,8 +19,11 @@ pipeline {
             script {
 		    if (fileExists(params.REPO_LIST)) {
                         echo 'File found'
-                         readFile(params.REPO_LIST).split('\n').each { readFirstLine: false, count ->
-                            def fields = line.split(',')
+			    def file = params.REPO.LIST
+                         file.readLines().eachWithIndex{ line, index ->
+				 if(index){
+                           // def fields = line.split(',')
+					 def fields = line.split(',').findAll { 'null' != it && it}
 			
                             //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
                              def jobname = fields[0]
@@ -36,6 +39,7 @@ pipeline {
 				msMap.put("${jobname}","${branchname}")		
 				
                              }
+			 }
 		    
 			    
 
