@@ -47,9 +47,7 @@ pipeline {
     			 	  FinalMap = msMap.subMap(it)
     			  	 initiatebuild(FinalMap)
 				}
-			    }else {
-                        echo ' File Not found. Failing.'
-                    }
+			    
 
 			        
 				
