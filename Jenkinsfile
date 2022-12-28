@@ -17,8 +17,7 @@ pipeline {
         stage('Parse the CSV') {
         steps {
             script {
-		    if (fileExists(params.REPO_LIST)) {
-                        echo 'File found'
+		    
 			    def file = params.REPO_LIST
                          file.readLines().eachWithIndex{ line, index ->
 				 if(index){
@@ -58,7 +57,7 @@ pipeline {
 	    
 	}
 	
-	}
+	
     }
 }
 
