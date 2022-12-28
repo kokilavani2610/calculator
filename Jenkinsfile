@@ -19,7 +19,7 @@ pipeline {
             script {
 		    if (fileExists(params.REPO_LIST)) {
                         echo 'File found'
-                         readFile(params.REPO_LIST, readFirstLine: false).split('\n').each { line, count ->
+                         readFile(params.REPO_LIST).split('\n').each { line, count, readFirstLine: false ->
                             def fields = line.split(',')
 			
                             //echo fields[0] + ': ' +  fields[1]+':'+fields[2];
