@@ -18,7 +18,7 @@ pipeline {
         steps {
             script {
 		    
-			    def file = params.REPO_LIST
+		    def file = "${params.REPO_LIST}"
                          file.readLines().eachWithIndex{ line, index ->
 				 if(index){
                            // def fields = line.split(',')
