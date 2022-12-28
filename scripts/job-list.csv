@@ -1,5 +1,6 @@
-pmd-github,,abc
-Pipeline 1,,xxx
-springboot,,yyy
-pmd,,ccc
-java-11-example,,ddd
+jobname,branch,image_tag
+pmd-github,main, 
+Pipeline 1,main, 
+springboot,main, 
+pmd,main, 
+java-11-example,main, 
