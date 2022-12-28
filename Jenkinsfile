@@ -18,7 +18,7 @@ pipeline {
         steps {
             script {
 		    
-		    def file = dir("scripts/job-list.csv")
+		    def file = "scripts/job-list.csv"
                          file.readLines().eachWithIndex{ line, index ->
 				 if(index){
                            // def fields = line.split(',')
