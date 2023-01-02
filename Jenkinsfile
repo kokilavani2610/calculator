@@ -15,17 +15,24 @@ pipeline {
         }
       }
     }
-//     stage('Slack Upload'){
-//       steps {
-//         slackUploadFile filePath: 'a.csv', initialComment: 'trying to uploading file'
-//       }
-//     }
-    stage ('Scan and Build Jar File') {
-            steps {
-               withSonarQubeEnv(installationName: 'sonarqubeserver', credentialsId: 'sonartoken') {
-                echo "sonar"
-                }
-            }
-        }
-  }
-}
+stage("git-push") {
+               steps {
+	       		withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
+           
+                    bat '''
+		     git config --global user.email "kokilavani688@gmail.com"
+                     git config --global user.name "kokilavani2610"
+		     
+		     git branch -a
+		     git checkout autodeploy
+	             git status
+	             git add scripts/job-list.csv
+
+                     git commit -m "update changes"
+		     
+		     git push https://github.com/kokilavani2610/calculator.git autodeploy
+		     
+	           '''
+		   }
+		 }
+           }
