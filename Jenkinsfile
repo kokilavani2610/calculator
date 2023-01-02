@@ -24,7 +24,7 @@ stage("git-push") {
                      git config --global user.name "kokilavani2610"
 		     
 		     git branch -a
-		     git checkout autodeploy
+		     git checkout -b autodeploy
 	             git status
 	             git add .
 
