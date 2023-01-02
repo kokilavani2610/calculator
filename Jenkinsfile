@@ -17,7 +17,8 @@ pipeline {
     }
 stage("git-push") {
                steps {
-	       		withCredentials([gitUsernamePassword(credentialsId: 'git_token', gitToolName: 'Default')]) {
+	       		//withCredentials([gitUsernamePassword(credentialsId: 'git_token', gitToolName: 'Default')]) {
+		       withCredentials([string(credentialsId: 'git_token', variable: 'token')]) {
            
                     bat '''
 		     git config --global user.email "kokilavani688@gmail.com"
