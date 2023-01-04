@@ -1,15 +1,22 @@
 pipeline {
-  agent any
-   parameters {
-    string(name: 'BRANCH', defaultValue: 'main', description: 'Namespace name', trim: true)
-  }
+  agent any  
   stages {
-    stage('PMD Scan') {
+    stage('Echo') {
       steps {
         script {
           echo 'test'
         }
       }
-    }    
+    } 
+    stage('UAT Scan') {
+      steps {
+        script {
+         bat '''
+         cd UAT_script
+         UAT SCA.bat
+         '''
+        }
+      }
+    }   
   }
 }
