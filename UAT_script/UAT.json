@@ -1,0 +1,134 @@
+{
+	"id": "2ad4f3e2-17a0-4b77-a091-0d0158e08114",
+	"name": "WELLNESS UAT VPN DNS",
+	"values": [
+		{
+			"key": "url",
+			"value": "http://10.184.90.13:8080/gateway-server-bso",
+			"enabled": true
+		},
+		{
+			"key": "PROCEDENCE",
+			"value": "MR01",
+			"enabled": true
+		},
+		{
+			"key": "SERVICE_PROCEDENCE",
+			"value": "MR01",
+			"enabled": true
+		},
+		{
+			"key": "USERAGENT",
+			"value": "ANDROID 8.1.0 Android+SDK+built+for+x86 NATIVE_APP 2.2.0 STANDARD",
+			"enabled": true
+		},
+		{
+			"key": "USER1_userid",
+			"value": "colettecart",
+			"enabled": true
+		},
+		{
+			"key": "USER1_password",
+			"value": "abc123",
+			"enabled": true
+		},
+		{
+			"key": "USER1_memorable",
+			"value": "test123",
+			"enabled": true
+		},
+		{
+			"key": "USER1_deviceID",
+			"value": "a3a7b15787267bd4",
+			"enabled": true
+		},
+		{
+			"key": "USER1_enrolmentID",
+			"value": "5799369",
+			"enabled": true
+		},
+		{
+			"key": "USER1_enrolmentKEY",
+			"value": "4CC06E45DA98768F1D83539EB88D4F93",
+			"enabled": true
+		},
+		{
+			"key": "USER1_enrolmentBIOID",
+			"value": "5799370",
+			"enabled": true
+		},
+		{
+			"key": "USER1_enrolmentBIOKEY",
+			"value": "8705933AB3F52922B0FC3F0FB882F52C",
+			"enabled": true
+		},
+		{
+			"key": "USER2_userid",
+			"value": "jennifermiles",
+			"enabled": true
+		},
+		{
+			"key": "USER2_password",
+			"value": "6284por2",
+			"enabled": true
+		},
+		{
+			"key": "USER2_memorable",
+			"value": "digital123",
+			"enabled": true
+		},
+		{
+			"key": "USER2_deviceID",
+			"value": "70dd71ae381f436a",
+			"enabled": true
+		},
+		{
+			"key": "USER2_enrolmentID",
+			"value": "5795355",
+			"enabled": true
+		},
+		{
+			"key": "USER2_enrolmentKEY",
+			"value": "003CA81453429D476EF80E1EFD690AAD",
+			"enabled": true
+		},
+		{
+			"key": "USER2_enrolmentBIOID",
+			"value": "5795356",
+			"enabled": true
+		},
+		{
+			"key": "USER2_enrolmentBIOKEY",
+			"value": "662FFF7536F1CCFB5A67E5F24DB8723D",
+			"enabled": true
+		},
+		{
+			"key": "fp_amount",
+			"value": "0.09",
+			"enabled": true
+		},
+		{
+			"key": "fp_exist_user1_to_user2_recip_name",
+			"value": "00020994",
+			"enabled": true
+		},
+		{
+			"key": "fp_new_user2_to_user1_sort_code",
+			"value": "30-10-47",
+			"enabled": true
+		},
+		{
+			"key": "fp_new_user2_to_user1_account",
+			"value": "00049569",
+			"enabled": true
+		},
+		{
+			"key": "APP_ID",
+			"value": "mobapp",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-10-15T11:41:06.045Z",
+	"_postman_exported_using": "Postman/7.31.0-canary01"
+}

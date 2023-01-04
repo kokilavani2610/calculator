@@ -1,0 +1,20 @@
+{
+  "name": "mobilewellness",
+  "version": "1.0.0",
+  "description": "Automated wellness for mobile app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordi Gaset",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.19.0",
+    "global-tunnel-ng": "^2.7.1",
+    "gmail-send": "^1.2.14",
+    "html-pdf": "^2.2.0",
+    "inquirer": "^3.0.6",
+    "newman": "^4.3.1",
+    "newman-reporter-html": "^1.0.2"
+  }
+}
