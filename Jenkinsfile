@@ -13,7 +13,8 @@ pipeline {
         script {
          bat '''
          cd UAT_script
-         UAT SCA.bat
+         ls
+         UAT_SCA.bat
          '''
         }
       }
