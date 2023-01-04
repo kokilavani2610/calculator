@@ -12,8 +12,7 @@ pipeline {
       steps {
         script {
          bat '''
-         cd UAT_script
-         ls
+         cd UAT_script         
          UAT_SCA.bat
          '''
         }
