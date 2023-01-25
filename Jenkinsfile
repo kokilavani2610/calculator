@@ -1,86 +1,64 @@
-def repoList = 'job-list.csv'
 def msMap =[:]
-def FinalMap =[:]
-
-
 pipeline {
     agent any
-    parameters {
-        string(name: 'NAMESPACE', defaultValue: 'sco', description: 'Namespace name', trim: true)
+   parameters {      
         string(name: 'REPO_LIST', defaultValue: 'scripts/job-list.csv', description: 'Name of CSV file containing the list of images', trim: true)
     }
     stages {
-
         stage('Parse the CSV') {
         steps {
             script {
-		    
-		    def file = "scripts/job-list.csv"
-                         file.readLines().eachWithIndex{ line, index ->
-				 if(index){
-                           // def fields = line.split(',')
-					 def fields = line.split(',').findAll { 'null' != it && it}
-			
-                            echo fields[0] + ': ' +  fields[1]+':'+fields[2];
-                             def jobname = fields[0]
-		
-			 if(fields[2]==null){
-                               branchname = fields[1]
-			 }else if(fields[1]==null){
-				  branchname= fields[2]
-			 }else{
-				  branchname = fields[1]+'##'+fields[2]
+		    def param
+		    def delimiter = ','
+		    println params.REPO_LIST
+                    if (fileExists(params.REPO_LIST)) {
+                        echo 'File found'
+                         readFile(params.REPO_LIST).split('\n').eachWithIndex { line, index, count ->
+		           if(index){
+                            def fields = line.split(delimiter)
+                            def jobname = fields[0]
+			   if (fields[1] != null) {
+                               param = fields[1]			    
+			    }	 				
+			    msMap.put("${jobname}","${param}")			   
+			    }
 			 }
-				 
-				msMap.put("${jobname}","${branchname}")
-					 echo msMap
-				
-                             }
-			 }
-		    
-			    
-
-			    
-			    
-	    }
-			        
-				
+			  	 initiatebuild(msMap)
+			  
+                    }else {
+                        echo ' File Not found. Failing.'
                     }
-	    
-	}
-	
-	
-    }
+
+                                }
+
+                        }
+                }
+
+        }
+
 }
-
-                                
-
 def initiatebuild(msMap) {	
-	def parallelStage = [:]	
 	def jobresult
-	 msMap.each{k,v->		
-		  parallelStage[k,v] = {			  
-			  stage("${k}"){
-				  script {
-					 def (branch,image) = v.split('##')
-					if(BUILD_TYPE == "deploy_only"){							
-					   jobresult = build job: "${k}", parameters: [string(name: 'IMAGE_TAG', value: "${image}")], wait: true, propagate: false
-					} else{
-					  jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true, propagate: false
+	def branch	
+	def buildresult
+	msMap.each{k,v->		
+			stage("${k}"){
+				script {
+					if ("${k}"== 'Multibranch'){
+						jobresult = build(job: '"${k}"/"${v}"')
+					} else {
+						jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true
 					}
-					
-					def buildresult =  "${jobresult.getResult()}"
+					buildresult =  "${jobresult.getResult()}"
 					echo "${buildresult}"
 					if("${buildresult}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
 						       error("Downstream job failing-job failed.")
 					}
 					}else{echo "No issues"}
-				  
-				  }
+				 }
 			  }
 		  }
-	 }
-	parallel parallelStage
+	
+	
 }
-					  
