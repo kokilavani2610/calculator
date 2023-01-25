@@ -1,10 +1,7 @@
 def repoList = 'job-list.csv'
 def msMap =[:]
-def paralleljob_size =3
 def FinalMap =[:]
-def branch
-def image
-def branchname
+
 
 pipeline {
     agent any
@@ -43,10 +40,7 @@ pipeline {
 		    
 			    
 
-			    (msMap.keySet() as List).collate(paralleljob_size).each{
-    			 	  FinalMap = msMap.subMap(it)
-    			  	 initiatebuild(FinalMap)
-				}
+			    
 			    
 	    }
 			        
