@@ -48,7 +48,7 @@ def initiatebuild(msMap) {
 					if ("${k}"== "Multibranch"){
 						echo "inside if "
 						echo "${k}" 
-						build (job:' "${k}.toString()"/"${branch}.toString()" ')
+						build (job:"${k}.toString()"/"${branch}.toString()")
 					} else {
 						jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true
 					}
