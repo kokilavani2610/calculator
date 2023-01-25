@@ -16,10 +16,9 @@ pipeline {
                          readFile(params.REPO_LIST).split('\n').eachWithIndex { line, index, count ->
 		           if(index){
                             def fields = line.split(delimiter)
-                            def jobname = fields[0]
-			   if (fields[1] != null) {
+                            def jobname = fields[0]			   
                                param = fields[1]			    
-			    }	 				
+			    	 				
 			    msMap.put("${jobname}","${param}")			   
 			    }
 			 }
