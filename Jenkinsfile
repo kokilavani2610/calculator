@@ -44,9 +44,11 @@ def initiatebuild(msMap) {
 			stage("${k}"){
 				script {
 					branch = v.trim()
-					
-					if ("${k}"== "Multibranch"){						 
-						build (job:"${k}")
+					def values
+					if ("${k}"== "Multibranch"){
+						values = "${k}" + '/' +"${branch}"
+						echo "${values}"
+						build (job:"${values}")
 					} else {
 						jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true
 					}
