@@ -44,7 +44,7 @@ def initiatebuild(msMap) {
 	msMap.each{k,v->		
 			stage("${k}"){
 				script {
-					if ("${k}"== 'Multibranch'){
+					if ("${k}"== "Multibranch"){
 						jobresult = build(job: '"${k}"/"${v}"')
 					} else {
 						jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true
