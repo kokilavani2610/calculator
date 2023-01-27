@@ -23,7 +23,7 @@ pipeline {
 				invokeResult(output)
 				
 
-			  jobresult1 = build job: "java-11-examples" , wait :true
+			  jobresult1 = build job: "java-11-example" , wait :true
 				output1 = "${jobresult1.getResult()}"
 				invokeResult(output)
 				
