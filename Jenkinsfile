@@ -15,17 +15,18 @@ pipeline {
 			script {
 				def jobresult,jobresult1,jobresult2
 				def output,output1,output2
-				def invokeResult
+				
 			    jobresult = build job: "Multibranch/main"
 				output = "${jobresult.getResult()}"
-				echo "${output}"
-				
 				invokeResult(output)
+				
+				
+				
 				
 
 			  jobresult1 = build job: "java-11-example" , wait :true
 				output1 = "${jobresult1.getResult()}"
-				invokeResult(output)
+				invokeResult(output1)
 				
 
 			 jobresult2 = build job: "QuinnoxPipeline" , parameters: [string(name: 'DEVICE_TYPE', value: params.DEVICE_TYPE), string(name:'DEVICE', value: params.DEVICE),
@@ -33,7 +34,7 @@ pipeline {
 											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
 				output2 = "${jobresult2.getResult()}"
-				invokeResult(output)
+				invokeResult(output2)
 			}
 				
 			
@@ -41,7 +42,7 @@ pipeline {
 	}
     }
 }
-def result(buildresult) {
+def invokeResult(buildresult) {
 	
 					if("${buildresult}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
