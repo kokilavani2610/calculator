@@ -11,7 +11,7 @@ pipeline {
     }
     stages {
 	    def jobresult
-	    def buildresult
+	    def result
         stage('Executing Microservices') {
 	    jobresult = build ( job : 'Multibranch/main' )
 		result(jobresult)
@@ -28,9 +28,10 @@ pipeline {
     }
 }
 def result(buildresult) {
+	def build
 	build =  "${buildresult.getResult()}"
-					echo "${buildresult}"
-					if("${buildresult}" != 'SUCCESS'){
+					echo "${build}"
+					if("${build}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
 						       error("Job Failed.")
 					}
