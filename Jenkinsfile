@@ -14,7 +14,7 @@ pipeline {
     stages {	    
         stage('Executing Microservices') {
 		steps {
-			
+			script {
 				def jobresult
 				def result
 				def output
@@ -32,6 +32,7 @@ pipeline {
 											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
 				output = "${jobresult.getResult()}"
+			}
 				
 			
 		}
