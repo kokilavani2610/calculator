@@ -10,6 +10,7 @@ pipeline {
             script {
 		    def param
 		    def delimiter = ','
+		    def lst =[]
 		    println params.REPO_LIST
                     if (fileExists(params.REPO_LIST)) {
                         echo 'File found'
@@ -17,8 +18,12 @@ pipeline {
 		           if(index){
                             def fields = line.split(delimiter)
                             def jobname = fields[0]			   
-                               param = fields[1]			    
-			    	 				
+                                if (fileds[2]==null){
+				  param = fields[1]
+				}else {
+					lst.add(fields[index])
+				}			   
+				   echo "${lst}"    	 				
 			    msMap.put("${jobname}","${param}")			   
 			    }
 			 }
