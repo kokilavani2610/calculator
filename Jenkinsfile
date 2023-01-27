@@ -15,12 +15,10 @@ pipeline {
         stage('Executing Microservices') {
 		steps {
 			script {
-				def jobresult
 				
-				def output
-			   jobresult = build job : "Multibranch/main"
-				output = "${jobresult.getResult()}"
-				echo "${output}"
+			    build job : "Multibranch/main"
+// 				output = "${jobresult.getResult()}"
+// 				echo "${output}"
 				
 
 // 			  jobresult1 = build job : "wellness_pipeline" , wait :true
