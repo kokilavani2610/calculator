@@ -1,3 +1,6 @@
+def jobresult
+def result
+def build
 pipeline {
     agent any
    parameters {      
@@ -10,8 +13,7 @@ pipeline {
         string(name: 'TEST_SET', defaultValue: 'Platinum_Pack_2', description: 'Test Set to execute', trim: true)
     }
     stages {
-	    def jobresult
-	    def result
+	    
         stage('Executing Microservices') {
 	    jobresult = build ( job : 'Multibranch/main' )
 		result(jobresult)
@@ -28,7 +30,7 @@ pipeline {
     }
 }
 def result(buildresult) {
-	def build
+	
 	build =  "${buildresult.getResult()}"
 					echo "${build}"
 					if("${build}" != 'SUCCESS'){
