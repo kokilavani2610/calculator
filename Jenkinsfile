@@ -19,9 +19,9 @@ pipeline {
 				def jobresult
 				def result
 				def output
-			    jobresult = build ( job : 'Multibranch/main' )
-				output = "${jobresult.getResult()}"
-				result(output)
+// 			    jobresult = build ( job : 'Multibranch/main' )
+// 				output = "${jobresult.getResult()}"
+// 				result(output)
 				
 
 			  jobresult = build job : "wellness_pipeline" , wait :true
