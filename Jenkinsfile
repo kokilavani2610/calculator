@@ -1,67 +1,48 @@
-def msMap =[:]
 pipeline {
     agent any
    parameters {      
-        string(name: 'REPO_LIST', defaultValue: 'scripts/job-list.csv', description: 'Name of CSV file containing the list of images', trim: true)
+        choice(name: 'DEVICE_TYPE', choices: "Android\niOS", description: 'Mobile device type on which to test')
+	string(name: 'DEVICE', defaultValue: 'GalaxyS10', description: 'Mobile device on which to test', trim: true)  
+	choice(name: 'TEST_TYPE', choices: "RELEASE\nTEST_PLAN", description: 'Regression Suite or Test Plan')
+	string(name: 'TEST_PLAN', defaultValue: 'UAT login', description: 'Scenario to test', trim: true)
+        string(name: 'TEST_CASE', defaultValue: 'LOGIN', description: 'Test case to execute', trim: true)
+	string(name: 'RELEASE', defaultValue: 'Jenkins_execution_Pack', description: 'Regression Suite to test', trim: true)
+        string(name: 'TEST_SET', defaultValue: 'Platinum_Pack_2', description: 'Test Set to execute', trim: true)
     }
     stages {
-        stage('Parse the CSV') {
-        steps {
-            script {
-		    def param
-		    def delimiter = ','
-		    println params.REPO_LIST
-                    if (fileExists(params.REPO_LIST)) {
-                        echo 'File found'
-                         readFile(params.REPO_LIST).split('\n').eachWithIndex { line, index, count ->
-		           if(index){
-                            def fields = line.split(delimiter)
-                            def jobname = fields[0]			   
-                               param = fields[1]			    
-			    	 				
-			    msMap.put("${jobname}","${param}")			   
-			    }
-			 }
-			  	 initiatebuild(msMap)
-			  
-                    }else {
-                        echo ' File Not found. Failing.'
-                    }
-
-                                }
-
-                        }
-                }
-
-        }
-
+	    def jobresult
+	    def buildresult
+        stage('Executing Microservices') {
+	    jobresult = build ( job : 'Multibranch/main' ), wait :true
+		result(jobresult)
+		
+		jobresult = build job : "wellness_pipeline" , wait :true
+		result(jobresult)
+		
+		jobresult = build job : "QuinnoxPipeline" , parameters: [string(name: 'DEVICE_TYPE', value: params.DEVICE_TYPE), string(name:'DEVICE', value: params.DEVICE),
+									       string(name: 'TEST_TYPE' , value: params.TEST_TYPE),string(name: 'TEST_PLAN',value: params.TEST_PLAN),
+									string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
+									string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
+		result(jobresult)
+	}
+    }
 }
-def initiatebuild(msMap) {	
-	def jobresult
-	def branch	
-	def buildresult
-	msMap.each{k,v->		
-			stage("${k}"){
-				script {
-					branch = v.trim()
-					def values
-					if ("${k}"== "Multibranch"){
-						values = "${k}" + '/' +"${branch}"
-						echo "${values}"
-						jobresult = build (job:"${values}")
-					} else {
-						jobresult = build job: "${k}", parameters: [string(name: 'BRANCH', value: "${branch}")], wait: true
-					}
-					buildresult =  "${jobresult.getResult()}"
+def result(buildresult) {
+	build =  "${buildresult.getResult()}"
 					echo "${buildresult}"
 					if("${buildresult}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-						       error("Downstream job failing-job failed.")
+						       error("Job Failed.")
 					}
 					}else{echo "No issues"}
-				 }
-			  }
-		  }
-	
-	
 }
+		
+		
+					
+						       
+						
+					
+					
+					
+		
+        
