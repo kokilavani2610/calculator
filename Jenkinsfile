@@ -19,7 +19,7 @@ pipeline {
 				def jobresult
 				def result
 				def output
-			    jobresult = build (job : 'Multibranch/main')
+			   build (job : 'Multibranch/main')
 				
 				
 				
