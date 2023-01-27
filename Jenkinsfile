@@ -20,7 +20,7 @@ pipeline {
 				def result
 				def output
 			    jobresult = build (job : 'Multibranch/main')
-				output = "${jobresult.getResult()}"
+				
 				
 				
 
