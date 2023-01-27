@@ -14,20 +14,21 @@ pipeline {
     stages {	    
         stage('Mutlibranch Job') {		
 		steps {
-			script {		
-				
-			    jobresult = build job: "Multibranch/main"
+			script {
+				jobresult = build job: "Multibranch/main"
 				output = "${jobresult.getResult()}"
-				invokeResult(output)
+			         invokeResult(output)  
+				   
+				   
 			}
 		}
 	}
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				    jobresult = build job: "java-11-example" , wait :true
+				    jobresult = build job: "wellness_pipeline" , wait :true
 				    output = "${jobresult.getResult()}"
-				    invokeResult(output1)
+				    invokeResult(output)
 			    }
 		    }
 	    }
@@ -38,8 +39,8 @@ pipeline {
 											       string(name: 'TEST_TYPE' , value: params.TEST_TYPE),string(name: 'TEST_PLAN',value: params.TEST_PLAN),
 											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
-				output = "${jobresult.getResult()}"
-				invokeResult(output2)
+				    output = "${jobresult.getResult()}"
+				    invokeResult(output)
 			    }
 		    }
 	    }
