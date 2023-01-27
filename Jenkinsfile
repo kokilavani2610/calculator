@@ -1,5 +1,3 @@
-
-def build
 pipeline {
     agent any
    parameters {      
@@ -16,7 +14,7 @@ pipeline {
 		steps {
 			script {
 				
-			    build job : "Multibranch/main"
+			    build job: "Multibranch/main"
 // 				output = "${jobresult.getResult()}"
 // 				echo "${output}"
 				
