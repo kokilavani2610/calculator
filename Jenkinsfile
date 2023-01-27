@@ -11,11 +11,10 @@ pipeline {
 	string(name: 'RELEASE', defaultValue: 'Jenkins_execution_Pack', description: 'Regression Suite to test', trim: true)
         string(name: 'TEST_SET', defaultValue: 'Platinum_Pack_2', description: 'Test Set to execute', trim: true)
     }
-    stages {
-	    
+    stages {	    
         stage('Executing Microservices') {
 		steps {
-			script {
+			
 				def jobresult
 				def result
 				def output
@@ -34,7 +33,7 @@ pipeline {
 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
 				output = "${jobresult.getResult()}"
 				
-			}
+			
 		}
 	}
     }
