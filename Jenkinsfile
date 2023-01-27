@@ -4,11 +4,11 @@ pipeline {
     agent any
    parameters {      
         choice(name: 'DEVICE_TYPE', choices: "Android\niOS", description: 'Mobile device type on which to test')
-	string(name: 'DEVICE', choices: "GalaxyS10\niphone11Quin", description: 'Mobile device on which to test', trim: true)  
+	choice(name: 'DEVICE', choices: "GalaxyS10\niphone11Quin", description: 'Mobile device on which to test', trim: true)  
 	choice(name: 'TEST_TYPE', choices: "RELEASE\nTEST_PLAN", description: 'Regression Suite or Test Plan')
 	string(name: 'TEST_PLAN', defaultValue: 'UAT login', description: 'Scenario to test', trim: true)
         string(name: 'TEST_CASE', defaultValue: 'LOGIN', description: 'Test case to execute', trim: true)
-	string(name: 'RELEASE', choices: "Jenkins_execution_Pack\niOS Jenkins_execution_Pack", description: 'Regression Suite to test', trim: true)
+	choice(name: 'RELEASE', choices: "Jenkins_execution_Pack\niOS Jenkins_execution_Pack", description: 'Regression Suite to test', trim: true)
         string(name: 'TEST_SET', defaultValue: 'Platinum_Pack_2', description: 'Test Set to execute', trim: true)
     }
     stages {	    
