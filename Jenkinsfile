@@ -18,17 +18,22 @@ pipeline {
 			script {
 				def jobresult
 				def result
+				def output
 			    jobresult = build ( job : 'Multibranch/main' )
-				result(jobresult)
+				output = "${jobresult.getResult()}"
+				result(output)
+				
 
-				jobresult = build job : "wellness_pipeline" , wait :true
-				result(jobresult)
+			  jobresult = build job : "wellness_pipeline" , wait :true
+				output = "${jobresult.getResult()}"
+				result(output)
 
-				jobresult = build job : "QuinnoxPipeline" , parameters: [string(name: 'DEVICE_TYPE', value: params.DEVICE_TYPE), string(name:'DEVICE', value: params.DEVICE),
+			 jobresult = build job : "QuinnoxPipeline" , parameters: [string(name: 'DEVICE_TYPE', value: params.DEVICE_TYPE), string(name:'DEVICE', value: params.DEVICE),
 											       string(name: 'TEST_TYPE' , value: params.TEST_TYPE),string(name: 'TEST_PLAN',value: params.TEST_PLAN),
 											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
-				result(jobresult)
+				output = "${jobresult.getResult()}"
+				result(output)
 			}
 		}
 	}
@@ -36,8 +41,6 @@ pipeline {
 }
 def result(buildresult) {
 	
-	build =  "${buildresult.getResult()}"
-					echo "${build}"
 					if("${build}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
 						       error("Job Failed.")
