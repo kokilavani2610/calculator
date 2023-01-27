@@ -15,22 +15,23 @@ pipeline {
         stage('Executing Microservices') {
 		steps {
 			script {
-				def jobresult,jobresult1,jobresult2
+				def jobresult
 				
-				def output,output1,output2
+				def output
 			   jobresult = build job : "Multibranch/main"
-				output = "${jobresult.getResult()}"		
+				output = "${jobresult.getResult()}"
+				echo "${output}"
 				
 
-			  jobresult1 = build job : "wellness_pipeline" , wait :true
-				output1 = "${jobresult1.getResult()}"
+// 			  jobresult1 = build job : "wellness_pipeline" , wait :true
+// 				output1 = "${jobresult1.getResult()}"
 				
 
-			 jobresult2 = build job : "QuinnoxPipeline" , parameters: [string(name: 'DEVICE_TYPE', value: params.DEVICE_TYPE), string(name:'DEVICE', value: params.DEVICE),
-											       string(name: 'TEST_TYPE' , value: params.TEST_TYPE),string(name: 'TEST_PLAN',value: params.TEST_PLAN),
-											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
-											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
-				output2 = "${jobresult2.getResult()}"
+// 			 jobresult2 = build job : "QuinnoxPipeline" , parameters: [string(name: 'DEVICE_TYPE', value: params.DEVICE_TYPE), string(name:'DEVICE', value: params.DEVICE),
+// 											       string(name: 'TEST_TYPE' , value: params.TEST_TYPE),string(name: 'TEST_PLAN',value: params.TEST_PLAN),
+// 											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
+// 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
+// 				output2 = "${jobresult2.getResult()}"
 			}
 				
 			
