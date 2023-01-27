@@ -1,4 +1,4 @@
 Job,Branch,DEVICE_TYPE,DEVICE,TEST_TYPE,TEST_PLAN,TEST_CASE,RELEASE,TEST_SET 
 Multibranch,main, , , , , , ,  
-QuinnoxPipeline,main,Android,GalaxtS10,TEST_PLAN,UAT login,LOGIN,Jenkins_execution_Pack,Platinum_Pack_2 
+QuinnoxPipeline, ,Android,GalaxtS10,TEST_PLAN,UAT login,LOGIN,Jenkins_execution_Pack,Platinum_Pack_2 
 java-11-examples,main, , , , , , , 
