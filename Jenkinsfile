@@ -13,7 +13,7 @@ pipeline {
 	    def jobresult
 	    def buildresult
         stage('Executing Microservices') {
-	    jobresult = build ( job : 'Multibranch/main' ), wait :true
+	    jobresult = build ( job : 'Multibranch/main' )
 		result(jobresult)
 		
 		jobresult = build job : "wellness_pipeline" , wait :true
