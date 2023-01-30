@@ -38,7 +38,7 @@ pipeline {
 		    }
 		    post {
                        failure {
-                          echo 'FAILED (in stage OK - should not happen :))'
+                          slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
                        }
                     }
 	    }
