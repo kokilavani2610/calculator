@@ -16,20 +16,23 @@ pipeline {
         stage('Mutlibranch Job') {		
 		steps {
 			script {
+			
 				jobresult = build job: "Multibranch/main"
 				output = "${jobresult.getResult()}"
+				invokeResult(output,slackChannel)
 			        
-				   
-				   
 			}
 		}
 	}
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: true	
-				    output = "${jobresult.getResult()}"
-				    
+				    if(DEVICE=='Andriod') {
+					    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: true	
+					    output = "${jobresult.getResult()}"
+					    invokeResult(output,slackChannel)
+				    }
+				 
 			    }
 		    }
 	    }
@@ -41,45 +44,28 @@ pipeline {
 											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true, propagate: true
 				    output = "${jobresult.getResult()}"
+				    invokeResult(output,slackChannel)
 				    
 			    }
 		    }
 	    }
     }
-	post {
-        always {
-            echo 'This will always run'
-        }
-        success {
-            script {
-                echo 'This will run only if successful'
-                slackBuildSuccess(slackChannel)
-            }    
-        }
-        failure {
-            script {
-                echo 'This will run only if failed'
-                slackBuildFailure(slackChannel)
-            }
-        }
-        unstable {
-            echo 'This will run only if the run was marked as unstable'
-        }
-        changed {
-            echo 'This will run only if the state of the Pipeline has changed'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
-        }
-    }
 }
-def slackBuildSuccess(slackChannel) {
-	slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
+def invokeResult(output,slackChannel) {
+	if("${buildresult}" != 'SUCCESS'){
+		catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+			slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
+		}
+		}
+	else{echo "No issues"}
 }
-def slackBuildFailure(slackChannel) {
-	slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.FAILED_STAGE} on [${env.BUILD_NUMBER}] '")
-}
-	
 	
 					
+						
+						       
+	
+
+			
 				    
 			  
 				
