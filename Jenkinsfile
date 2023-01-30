@@ -36,6 +36,11 @@ pipeline {
 			
 			    }
 		    }
+		    post {
+                       failure {
+                          echo 'FAILED (in stage OK - should not happen :))'
+                       }
+                    }
 	    }
 	    stage('Quinnox') {
 		    steps {
