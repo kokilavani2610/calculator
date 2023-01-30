@@ -29,7 +29,7 @@ pipeline {
 			    script {
 				    jobresult = build job: "wellness_pipeline" , wait :true
 				    output = "${jobresult.getResult()}"
-				    invokeResult(output,slackChannel)
+				    invokeResult(output,slackChannel,stage)
 			    }
 		    }
 	    }
@@ -41,20 +41,20 @@ pipeline {
 											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
 				    output = "${jobresult.getResult()}"
-				    invokeResult(output,slackChannel)
+				    invokeResult(output,slackChannel,stage)
 			    }
 		    }
 	    }
     }
 }
-def invokeResult(buildresult,slackChannel) {
+def invokeResult(buildresult,slackChannel,stage) {
 	
 					if("${buildresult}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'")
+						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job" "${stage}" )
 					}
 					}else{
-						slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'")
+						slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job" "${stage}" )
 					}
 }
 
