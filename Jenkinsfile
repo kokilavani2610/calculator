@@ -27,10 +27,11 @@ pipeline {
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				    jobresult = build job: "java-11-example" , wait :true
+				    def x= build job: "java-11-example" , wait :true				    
+				     
 				    echo "output"
-				    echo "${jobresult.getResult()}"
-				    output = "${jobresult.getResult()}"
+				    echo "${x.getResult()}"
+				    output = "${x.getResult()}"
 				    echo "${output}"
 				    if("${output}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
