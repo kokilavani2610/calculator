@@ -18,7 +18,8 @@ pipeline {
 			script {
 			
 				jobresult = build job: "Multibranch/main"
-				echo "${currentStage.currentResult}"
+				def a = currentBuild.result
+				echo "${a}"
 				output = "${jobresult.getResult()}"
 				invokeResult(output,slackChannel)
 			        
