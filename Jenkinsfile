@@ -27,7 +27,7 @@ pipeline {
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				    if(DEVICE=='Andriod') {
+				    if(DEVICE_TYPE=='Android') {
 					    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: true	
 					    output = "${jobresult.getResult()}"
 					    invokeResult(output,slackChannel)
