@@ -47,14 +47,14 @@ pipeline {
 	    }
     }
 }
-def invokeResult(buildresult,stage) {
+def invokeResult(buildresult) {
 	
 					if("${buildresult}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job "${stage}" '[${env.BUILD_NUMBER}]'")
+						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'")
 					}
 					}else{
-						slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job "${stage}"} '[${env.BUILD_NUMBER}]'")
+						slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'")
 					}
 }
 
