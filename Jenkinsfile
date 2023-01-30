@@ -16,7 +16,7 @@ pipeline {
         stage('Mutlibranch Job') {		
 		steps {
 			script {
-				jobresult = build job: "Multibranch/pmd"
+				jobresult = build job: "Multibranch/main"
 				output = "${jobresult.getResult()}"
 			         invokeResult(output,slackChannel)  
 				   
@@ -27,7 +27,7 @@ pipeline {
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				    jobresult= build job: "java-11-example" , wait :true		    
+				    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')},wait :true		    
 				     echo "Failed stage: ${env.FAILED_STAGE}"
 				    echo "output"
 				    echo "${jobresult.getResult()}"
