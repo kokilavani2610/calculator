@@ -16,7 +16,7 @@ pipeline {
         stage('Mutlibranch Job') {		
 		steps {
 			script {
-				jobresult = build job: "Multibranch/main"
+				jobresult = build job: "Multibranch/pmd"
 				output = "${jobresult.getResult()}"
 			         invokeResult(output,slackChannel)  
 				   
