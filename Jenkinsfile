@@ -27,7 +27,7 @@ pipeline {
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				    jobresult = build job: "wellness_pipeline" , wait :true
+				    jobresult = build job: "java-11-example" , wait :true
 				    output = "${jobresult.getResult()}"
 				    invokeResult(output,slackChannel)
 			    }
