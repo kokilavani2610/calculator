@@ -28,6 +28,7 @@ pipeline {
 		    steps {
 			    script {
 				    jobresult = build job: "java-11-example" , wait :true
+				    echo "${jobresult.result()}"
 				    output = "${jobresult.getResult()}"
 				    echo "${output}"
 				    if("${output}" != 'SUCCESS'){
