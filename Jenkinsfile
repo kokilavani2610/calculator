@@ -51,10 +51,10 @@ def invokeResult(buildresult,slackChannel,stage) {
 	
 					if("${buildresult}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job" "${stage}" )
+						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${stage} on [${env.BUILD_NUMBER}] '")
 					}
 					}else{
-						slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job" "${stage}" )
+						slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job '${stage} on [${env.BUILD_NUMBER}] '")
 					}
 }
 
