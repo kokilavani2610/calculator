@@ -29,6 +29,7 @@ pipeline {
 			    script {
 				    jobresult = build job: "java-11-example" , wait :true
 				    output = "${jobresult.getResult()}"
+				    echo "${output}"
 				    if("${output}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
 						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
