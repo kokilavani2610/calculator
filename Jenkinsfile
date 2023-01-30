@@ -52,7 +52,7 @@ pipeline {
     }
 }
 def invokeResult(output,slackChannel) {
-	if("${buildresult}" != 'SUCCESS'){
+	if("${output}" != 'SUCCESS'){
 		catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
 			slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
 		}
