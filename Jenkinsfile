@@ -29,21 +29,11 @@ pipeline {
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				    if(DEVICE_TYPE=='Android') {
-					    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: false
-					    output = "${jobresult.getResult()}"
-					    if("${output}" != 'SUCCESS'){
-							catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-								slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
-							}
-							}
-					    else{
-							slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
-						}
-					    
-					    
-				    }
-				 
+				     jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: false
+				     output = "${jobresult.getResult()}"
+				    echo "${output}"
+				    invokeResult(output,slackChannel)
+			
 			    }
 		    }
 	    }
