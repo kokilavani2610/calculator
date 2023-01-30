@@ -7,7 +7,7 @@ pipeline {
     stage('PMD Scan') {
       steps {
         script {
-          echo 'test'
+            test
         }
       }
     }    
