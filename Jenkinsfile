@@ -18,7 +18,7 @@ pipeline {
 			script {
 				jobresult = build job: "Multibranch/main"
 				output = "${jobresult.getResult()}"
-			         invokeResult(output)  
+			         invokeResult(output,slackChannel)  
 				   
 				   
 			}
@@ -29,7 +29,7 @@ pipeline {
 			    script {
 				    jobresult = build job: "wellness_pipeline" , wait :true
 				    output = "${jobresult.getResult()}"
-				    invokeResult(output)
+				    invokeResult(output,slackChannel)
 			    }
 		    }
 	    }
@@ -41,13 +41,13 @@ pipeline {
 											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
 				    output = "${jobresult.getResult()}"
-				    invokeResult(output)
+				    invokeResult(output,slackChannel)
 			    }
 		    }
 	    }
     }
 }
-def invokeResult(buildresult) {
+def invokeResult(buildresult,slackChannel) {
 	
 					if("${buildresult}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
