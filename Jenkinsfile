@@ -1,4 +1,5 @@
 def jobresult
+def slackChannel = "pmd-output"
 def output
 pipeline {
     agent any
@@ -46,13 +47,15 @@ pipeline {
 	    }
     }
 }
-def invokeResult(buildresult) {
+def invokeResult(buildresult,stage) {
 	
 					if("${buildresult}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
-						       error("Downstream job Failed.")
+						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job "${stage}" '[${env.BUILD_NUMBER}]'")
 					}
-					}else{echo "No issues"}
+					}else{
+						slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job "${stage}"} '[${env.BUILD_NUMBER}]'")
+					}
 }
 
 				    
