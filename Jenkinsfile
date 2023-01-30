@@ -28,7 +28,7 @@ pipeline {
 		    steps {
 			    script {
 				    if(DEVICE_TYPE=='Android') {
-					    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: true.result	
+					    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: true.result()	
 					    //output = "${jobresult.getResult()}"
 					    invokeResult(jobresult,slackChannel)
 					    //invokeResult(output,slackChannel)
