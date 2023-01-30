@@ -27,7 +27,7 @@ pipeline {
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')},wait :true		    
+				    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')],wait :true		    
 				     echo "Failed stage: ${env.FAILED_STAGE}"
 				    echo "output"
 				    echo "${jobresult.getResult()}"
