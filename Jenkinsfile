@@ -29,7 +29,7 @@ pipeline {
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				     jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: false
+				     jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true
 				     output = "${jobresult.getResult()}"
 				    echo "${output}"
 				    invokeResult(output,slackChannel)
