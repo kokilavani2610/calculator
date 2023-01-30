@@ -28,7 +28,7 @@ pipeline {
 		    steps {
 			    script {
 				    jobresult= build job: "java-11-example" , wait :true		    
-				     
+				     echo "Failed stage: ${env.FAILED_STAGE}"
 				    echo "output"
 				    echo "${jobresult.getResult()}"
 				    output = "${jobresult.getResult()}"
