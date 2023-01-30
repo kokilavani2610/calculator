@@ -18,7 +18,7 @@ pipeline {
 			script {
 				jobresult = build job: "Multibranch/main"
 				output = "${jobresult.getResult()}"
-			         invokeResult(output,slackChannel)  
+			         invokeResult(output,slackChannel,stage)  
 				   
 				   
 			}
