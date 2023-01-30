@@ -20,6 +20,7 @@ pipeline {
 				jobresult = build job: "Multibranch/main"
 				
 				output = "${jobresult.getResult()}"
+				echo "${output}"
 				invokeResult(output,slackChannel)
 			        
 			}
@@ -29,9 +30,9 @@ pipeline {
 		    steps {
 			    script {
 				    if(DEVICE_TYPE=='Android') {
-					    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: true.getResult()
+					    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: true
 					    echo "${jobresult}"
-					    e
+					    
 					    //output = "${jobresult.getResult()}"
 					    invokeResult(jobresult,slackChannel)
 					    //invokeResult(output,slackChannel)
