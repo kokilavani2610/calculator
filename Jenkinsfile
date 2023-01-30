@@ -27,13 +27,10 @@ pipeline {
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')],wait: true, propagate: true	    
-				     
-				    echo "output"
-				    echo "${jobresult.getResult()}"
+				    jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true, propagate: true	
 				    output = "${jobresult.getResult()}"
 				    echo "${output}"
-				    if("${output}" != 'SUCCESS'){
+				      if("${output}" != 'SUCCESS'){
 						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
 						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
 					}
@@ -55,6 +52,15 @@ pipeline {
 			    }
 		    }
 	    }
+    }
+	post {
+        failure {
+            if("${output}" != 'SUCCESS'){
+						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
+					}
+	    }
+        }
     }
 }
 def invokeResult(buildresult,slackChannel) {
