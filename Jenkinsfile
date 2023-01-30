@@ -28,7 +28,8 @@ pipeline {
 		    steps {
 			    script {
 				    jobresult = build job: "java-11-example" , wait :true
-				    echo "${jobresult.result()}"
+				    echo "output"
+				    echo "${jobresult.getResult()}"
 				    output = "${jobresult.getResult()}"
 				    echo "${output}"
 				    if("${output}" != 'SUCCESS'){
@@ -41,18 +42,18 @@ pipeline {
 			    }
 		    }
 	    }
-// 	    stage('Quinnox') {
-// 		    steps {
-// 			    script {
-// 				    jobresult = build job: "QuinnoxPipeline" , parameters: [string(name: 'DEVICE_TYPE', value: params.DEVICE_TYPE), string(name:'DEVICE', value: params.DEVICE),
-// 											       string(name: 'TEST_TYPE' , value: params.TEST_TYPE),string(name: 'TEST_PLAN',value: params.TEST_PLAN),
-// 											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
-// 											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
-// 				    output = "${jobresult.getResult()}"
-// 				    invokeResult(output,slackChannel)
-// 			    }
-// 		    }
-// 	    }
+	    stage('Quinnox') {
+		    steps {
+			    script {
+				    jobresult = build job: "QuinnoxPipeline" , parameters: [string(name: 'DEVICE_TYPE', value: params.DEVICE_TYPE), string(name:'DEVICE', value: params.DEVICE),
+											       string(name: 'TEST_TYPE' , value: params.TEST_TYPE),string(name: 'TEST_PLAN',value: params.TEST_PLAN),
+											string(name: 'TEST_CASE',value: params.TEST_CASE),string(name: 'RELEASE', value: params.RELEASE),
+											string(name: 'TEST_SET', value: params.TEST_SET)], wait: true
+				    output = "${jobresult.getResult()}"
+				    invokeResult(output,slackChannel)
+			    }
+		    }
+	    }
     }
 }
 def invokeResult(buildresult,slackChannel) {
