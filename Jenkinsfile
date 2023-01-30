@@ -29,7 +29,13 @@ pipeline {
 			    script {
 				    jobresult = build job: "java-11-example" , wait :true
 				    output = "${jobresult.getResult()}"
-				    invokeResult(output,slackChannel)
+				    if("${output}" != 'SUCCESS'){
+						catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
+						      slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
+					}
+					}else{
+						slackSend (channel: "#${slackChannel}", color: '#00FF00', tokenCredentialId: 'slack-bot-token', message: "SUCCESSFUL: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
+					}
 			    }
 		    }
 	    }
