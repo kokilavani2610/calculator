@@ -17,14 +17,17 @@ pipeline {
 		steps {
 			script {
 			
-				jobresult = build job: "Multibranch/main"
-				
-				output = "${jobresult.getResult()}"
-				echo "${output}"
+				jobresult = build job: "Multibranch/main"				
+				output = "${jobresult.getResult()}"				
 				invokeResult(output,slackChannel)
 			        
 			}
 		}
+		post {
+                       failure {
+                          slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] not proceed to Next Stage'")
+                       }
+                    }
 	}
 	    stage('Wellness Script') {
 		    steps {
@@ -38,7 +41,7 @@ pipeline {
 		    }
 		    post {
                        failure {
-                          slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
+                          slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] not proceed to Next Stage'")
                        }
                     }
 	    }
@@ -54,6 +57,11 @@ pipeline {
 				    
 			    }
 		    }
+		    post {
+                       failure {
+                          slackSend (channel: "#${slackChannel}", color: '#FF0000', tokenCredentialId: 'slack-bot-token', message: "FAILED: Job '${env.STAGE_NAME} on [${env.BUILD_NUMBER}] '")
+                       }
+                    }
 	    }
     }
 }
