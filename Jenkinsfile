@@ -17,7 +17,7 @@ pipeline {
 		steps {
 			script {
 			
-				jobresult = build job: "Multibranch/main"				
+				jobresult = build job: "Multibranch/main" , wait: true , propagate: true				
 				output = "${jobresult.getResult()}"				
 				invokeResult(output,slackChannel)
 			        
@@ -32,10 +32,9 @@ pipeline {
 	    stage('Wellness Script') {
 		    steps {
 			    script {
-				     jobresult= build job: "springboot" , parameters: [string(name: 'BRANCH', value: 'main')], wait: true
-				     output = "${jobresult.getResult()}"
-				    echo "${output}"
-				    invokeResult(output,slackChannel)
+				     jobresult= build job: "wellness_pipeline" , wait: true , propagate: true
+				     output = "${jobresult.getResult()}"				   
+				     invokeResult(output,slackChannel)
 			
 			    }
 		    }
