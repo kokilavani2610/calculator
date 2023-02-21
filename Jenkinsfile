@@ -5,7 +5,7 @@ pipeline {
       steps {
         script {
             bat '''
-              kubectl -v
+              kubectl version
               '''
         }
       }
