@@ -1,13 +1,12 @@
 pipeline {
-  agent any
-   parameters {
-    string(name: 'BRANCH', defaultValue: 'main', description: 'Namespace name', trim: true)
-  }
+  agent any   
   stages {
-    stage('PMD Scan') {
+    stage('Hello') {
       steps {
         script {
-            test
+            bat '''
+              kubectl -v
+              '''
         }
       }
     }    
